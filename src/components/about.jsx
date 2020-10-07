@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { Jumbotron, Carousel } from 'react-bootstrap';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn, SegmentInline } from 'semantic-ui-react';
 import App from '../App'
-
+ 
 
 
 export default class About extends Component {
