@@ -1,0 +1,179 @@
+*:not(.icon) {
+  font-family: 'Lora', serif !important;
+  
+ 
+}
+
+
+
+button.ui.primary.button{
+  background-color: #4c96d7 !important;
+}
+
+.App-logo {
+  height: 25vmin;
+  pointer-events: none;
+  position: absolute;
+  display: block;
+}
+
+/* #rev1{
+  position: absolute;
+  top: 20%;
+  left: 56%;
+ 
+  
+}
+#rev2{
+  position: absolute;
+  top: 16%;
+  left: 28%;
+  
+}
+
+#rev3{
+  position: absolute;
+  top: 2%;
+  left: 55%;
+  
+} */
+
+
+
+.second-div{
+  margin: 4%;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */
+
+
+
+/* .App-link {
+  color: #61dafb;
+} */
+
+/* @keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+#logo{
+ margin: auto;
+ z-index: 1;
+ position:relative;
+  
+}
+
+#nav-menu{
+  /* background-image: url("../src/images/stockfootage.mp4"); */
+  height: 4rem;
+
+}
+
+/* .flex-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+} */
+
+/* .divsinsideflex{
+  margin: 2px;
+  text-align: center;
+} */
+
+/* .search-box{
+  float: left;
+  margin: 10px;
+
+  
+} */
+
+
+#ratings-table{
+  opacity: 0.9;
+  width: 70%;
+  margin: auto;
+  height: min-content;
+  overflow-y: scroll
+ 
+}
+
+.fourth-div{
+  background-color: white; 
+  /* background-image: linear-gradient(#8FBC8F, #993366);  */
+  /* min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin); */
+  color: white;
+  
+}
+
+
+    
+  /* border: solid black; */
+
+#logo-footer{
+position: relative;
+margin: auto;
+  
+ 
+}
+#logo-footer-label{
+  
+  background-color: transparent;
+  border: none;
+ 
+ 
+}
+#footer-label{
+
+  
+  
+ 
+  
+}
+
+.whole-footer{
+
+  background-color: rgba(161, 151, 170, 0.288) !important;
+  width: 100%;
+
+}
+.column{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 2;
+  text-align: center;
+  
+}
+
+.column div.ui.icon.input{
+  width: 100%;
+}
+
+
+
+div.equal.width.row{
+  margin: auto;
+}
+
+.first-div{
+  background-image: url("https://media.giphy.com/media/CNCxQqBLygkZhTuRyB/giphy.gif");
+  background-position: center; /* Center the image */
+   /* Do not repeat the image */
+
+  
+ 
+}
