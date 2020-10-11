@@ -61,6 +61,7 @@ class Navigation extends Component {
 					name='Companies'
 					active={activeItem === 'Internship Companies'}
 					onClick={this.handleItemClick}
+					href='/companies'
 				/>
 				<Menu.Item
 					name='Ratings'

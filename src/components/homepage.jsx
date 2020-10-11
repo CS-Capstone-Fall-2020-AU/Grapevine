@@ -8,7 +8,7 @@ import Logo from '../images/fourth.png';
 import rev1 from '../images/fakerev4.png';
 import rev2 from '../images/fakerev7.png';
 import rev3 from '../images/fakerev8.png';
-import TopRatings from './topRatings';
+import TopRatings from './companies';
 import stock from '../images/stockfootage.mp4';
 
 import About from './about';
@@ -61,7 +61,7 @@ export default class Homepage extends Component {
 						<Grid columns={2} padded='horizontally'>
 							<Grid.Column>
 								<Container textAlign='center'><Header as='h4'>Contact</Header></Container>
-								<Divider />
+							
 									For business inquiries or site concerns:
 									<br />
 									Email: elisabettag80@gmail.com
@@ -71,7 +71,7 @@ export default class Homepage extends Component {
 
 							<Grid.Column>
 								<Container textAlign='center'><Header as='h4'>Follow us</Header></Container>
-								<Divider />
+								<br />
 								<Icon link name='twitter' size='large' />
 								<Icon link name='facebook' size='large' />
 								<Icon link name='instagram' size='large' />
