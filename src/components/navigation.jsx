@@ -9,7 +9,9 @@ import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
 import Logo from '../images/fourth.png';
 import { connect } from 'react-redux';
+import { fetchProducts} from "../store/actions/companyActions";
 import searchReducer from '../store/reducers/searchReducer';
+
 
 var activeItem;
 
@@ -20,13 +22,19 @@ const source = _.times(5, () => ({
 	price: faker.finance.amount(0, 100, 2, '$'),
 }))
 
-
 class Navigation extends Component {
-
+	//shake and then turn the app dark
+	state = {
+		anon: false,
+		
+	}
+	handleRateAnon = () =>{
+		this.setState({anon: true});
+	}
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 	handleSearchChange = (e, data) => {
 		//   clearTimeout(timeoutRef.current)
-		this.props.startSearch(data.value);
+		this.props.fetchCompanies(data.value);
 
 		setTimeout(() => {
 			if (data.value.length === 0) {
@@ -47,6 +55,7 @@ class Navigation extends Component {
 	render() {
 		return (
 			<Sticky>
+				{(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')}
 			<Menu id="nav-menu">
 				<Menu.Item
 					name='Grapevine'
@@ -67,6 +76,7 @@ class Navigation extends Component {
 					name='Ratings'
 					active={activeItem === 'ratings'}
 					onClick={this.handleItemClick}
+					href = '/ratings'
 				/>
 
 				<Menu.Item
@@ -94,10 +104,10 @@ class Navigation extends Component {
 
 				<Menu.Menu position='right'>
 					<Menu.Item>
-						<Button secondary>Rate Anonymously</Button>
+						<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
 					</Menu.Item>
 
-					<Menu.Item>
+					<Menu.Item href='/login'>
 						<Button primary>Sign Up/Login</Button>
 					</Menu.Item>
 				</Menu.Menu>
@@ -111,11 +121,15 @@ class Navigation extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		search: state.search
+		search: state.search,
+		products: state.products.items,
+		loading: state.products.loading,
+		error: state.products.error
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
+		fetchCompanies: (value) => dispatch(fetchProducts(value)),
 		startSearch: (dataValue) => dispatch({ type: 'START_SEARCH', query: dataValue }),
 		cleanQuery: () => dispatch({ type: 'CLEAN_QUERY' }),
 		finalSearch: (isMatching) => dispatch({ type: 'FINISH_SEARCH', results: _.filter(source, isMatching) },),

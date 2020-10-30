@@ -70,6 +70,7 @@ app.get('/companies', (req, res) => {
 app.post('/companies', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
   const body = (req.body);
+  console.log("img", body.imageLogoUrl);
   var practice = 'INSERT INTO `companies`(`companyName`, `numOfRatings`, `overallRatingGrade`, `imgLogoUrl`) VALUES ("' + body.companyName + '", "' + body.numOfRatings + '", "' + body.overallRatingGrade + '", "' + body.imageLogoUrl + '")'
   con.query(practice, function (err, result) {
     if (err) throw err;

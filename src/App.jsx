@@ -14,6 +14,9 @@ import About from './components/about';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Homepage from './components/homepage'
 import Companies from './components/companies'
+import CompanyPage from './components/companyPage';
+import Login from './components/login';
+
 
 
 
@@ -27,7 +30,9 @@ function App() {
         <Switch>
           <Route path='/about' exact component={About} />
           <Route path='/companies' exact component={Companies} />
-          <Route path='/' exact component={Homepage} />
+          <Route path='/'exact component={Homepage} />
+          <Route path='/ratings/:id'  render = {(id) => <CompanyPage data={id} />} />
+          <Route path='/login' exact component={Login} />
         </Switch>
 
 

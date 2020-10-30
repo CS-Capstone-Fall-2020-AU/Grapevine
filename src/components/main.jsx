@@ -14,7 +14,6 @@ import Reveal from 'react-reveal/Shake';
 
 
 
-//so if the ssid is 1 then i want to fetch the spectral data, go to the first entry and collect the spectral data
 export default class Main extends Component {
 
 

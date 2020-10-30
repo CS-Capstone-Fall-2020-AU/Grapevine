@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css'
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './store/reducers/rootReducer';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
