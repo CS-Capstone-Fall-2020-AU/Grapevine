@@ -1,9 +1,13 @@
 *:not(.icon) {
   font-family: 'Lora', serif !important;
   
- 
 }
 
+.dark-style{
+  background-color: #aeb1b3;
+  
+
+}
 
 
 button.ui.primary.button{
@@ -98,12 +102,10 @@ button.ui.primary.button{
 } */
 
 
-#ratings-table{
-  opacity: 0.9;
-  width: 70%;
-  margin: auto;
-  height: min-content;
-  overflow-y: scroll
+.ratings-table{
+  width: 70% !important;
+  height: min-content !important;
+  overflow-y: scroll !important;
  
 }
 
@@ -135,13 +137,7 @@ margin: auto;
  
  
 }
-#footer-label{
 
-  
-  
- 
-  
-}
 
 .whole-footer{
 
@@ -176,4 +172,14 @@ div.equal.width.row{
 
   
  
+}
+
+.add-company-modal{
+
+    background-image: url("https://www.clker.com/cliparts/o/Z/Y/a/p/8/green-vines-th.png") !important;
+   
+    background-position: right !important; /* Center the image */
+    background-repeat: no-repeat !important; /* Do not repeat the image */
+    /* Resize the background image to cover the entire container */
+   
 }

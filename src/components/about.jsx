@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { Jumbotron, Carousel } from 'react-bootstrap';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn, SegmentInline } from 'semantic-ui-react';
 import App from '../App'
-
+ 
 
 
 export default class About extends Component {
@@ -45,6 +45,7 @@ export default class About extends Component {
 
 				<br />
 				<br/>
+				
 				<Container textAlign='justified'>
 					
 				<Header as='h2' textAlign='center'>Meet the creators of Grapevine</Header>
@@ -68,7 +69,7 @@ export default class About extends Component {
 
 					<Grid.Column width={10} style={{ 'margin': 'auto', 'padding-left': '10%' }}>
 						<strong>Drew Messick </strong>is a software engineer, currently pursuing a BS in Computer Science at American University.
-						Upon graduating, he will work for a company and he will love his job and be very successful and love life and live in Bora Bora.
+						Upon graduating, he will work for a company and continue working on projects involving AI and data science.
 					</Grid.Column>
 					<Grid.Column width={6}>
 						<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src='https://media-exp1.licdn.com/dms/image/C5603AQFLhCMCbQKPiA/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=vWDgy6pcq8PvKhNdDZfiiExUgqcvD0WR6lOb27gj8bs' circular />

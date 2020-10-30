@@ -1,6 +1,6 @@
 const initState = {
 	loading: false,
-	results: [4, 3, 2],
+	results: [],
 	value: '',
   }
 
