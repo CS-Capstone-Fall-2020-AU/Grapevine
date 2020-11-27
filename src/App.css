@@ -46,28 +46,11 @@ button.ui.primary.button{
 
 .second-div{
   margin: 4%;
+ 
+  
 }
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
 
-
-
-/* .App-link {
-  color: #61dafb;
-} */
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 #logo{
  margin: auto;
@@ -77,29 +60,17 @@ button.ui.primary.button{
 }
 
 #nav-menu{
-  /* background-image: url("../src/images/stockfootage.mp4"); */
   height: 4rem;
+
+   /* background-image: url("https://media.giphy.com/media/USmD");
+
+  background-position: center; 
+  background-repeat: repeat;
+  background-size: 7%;   */
 
 }
 
-/* .flex-container{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-} */
 
-/* .divsinsideflex{
-  margin: 2px;
-  text-align: center;
-} */
-
-/* .search-box{
-  float: left;
-  margin: 10px;
-
-  
-} */
 
 
 .ratings-table{
@@ -166,11 +137,14 @@ div.equal.width.row{
 }
 
 .first-div{
-  background-image: url("https://media.giphy.com/media/CNCxQqBLygkZhTuRyB/giphy.gif");
-  background-position: center; /* Center the image */
+  /* background-image: url("images/freshgraps6.png"); 
+  background-repeat: repeat; /* Do not repeat the image */
+
+  /* background-position: center;  */
+  background-color: rgba(49, 38, 38, 0.76);
+ 
    /* Do not repeat the image */
 
-  
  
 }
 
@@ -182,4 +156,21 @@ div.equal.width.row{
     background-repeat: no-repeat !important; /* Do not repeat the image */
     /* Resize the background image to cover the entire container */
    
+}
+
+#front-grid{
+  background-image: url("images/freshgraps6.png"); 
+
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 18%; /* Resize the background image to cover the entire container */
+}
+
+#review-paging{
+
+}
+
+
+.ui.inverted[class*="vertically divided"].grid>.row:before {
+  box-shadow: none !important;
 }

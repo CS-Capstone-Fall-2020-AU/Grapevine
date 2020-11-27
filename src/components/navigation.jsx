@@ -7,9 +7,10 @@ import faker from 'faker'
 import { Button, Sticky, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../images/fourth.png';
+import Logo from '../images/finalelogo3.png';
 import { connect } from 'react-redux';
 import { fetchProducts} from "../store/actions/companyActions";
+import { getLogins } from "../store/actions/loginActions";
 import searchReducer from '../store/reducers/searchReducer';
 
 
@@ -55,7 +56,7 @@ class Navigation extends Component {
 	render() {
 		return (
 			<Sticky>
-				{(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')}
+				{/* {(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')} */}
 			<Menu id="nav-menu">
 				<Menu.Item
 					name='Grapevine'
@@ -106,10 +107,18 @@ class Navigation extends Component {
 					<Menu.Item>
 						<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
 					</Menu.Item>
-
+							{/* need redux persist */}
+						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ?
+						<Menu.Item href='/login'>
+						<Button primary>{this.props.usersLogins.username}</Button>
+						{console.log('inside resist', this.props.usersLogins)}
+					</Menu.Item>:
 					<Menu.Item href='/login'>
 						<Button primary>Sign Up/Login</Button>
-					</Menu.Item>
+					</Menu.Item> }
+
+					
+
 				</Menu.Menu>
 			</Menu>
 			</Sticky>
@@ -124,7 +133,9 @@ const mapStateToProps = (state) => {
 		search: state.search,
 		products: state.products.items,
 		loading: state.products.loading,
-		error: state.products.error
+		error: state.products.error,
+		usersLogins: state.users.logins,
+		usersLoginsLoading: state.users.loginsLoading,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

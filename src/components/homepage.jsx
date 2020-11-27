@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Main from './main';
 import Navigation from './navigation';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
-import Logo from '../images/fourth.png';
+import Logo from '../images/finalelogo3.png';
 import rev1 from '../images/fakerev4.png';
 import rev2 from '../images/fakerev7.png';
 import rev3 from '../images/fakerev8.png';
@@ -22,7 +22,7 @@ export default class Homepage extends Component {
 	render() {
 		return (
 
-			<Grid divided='vertically' centered inverted >
+			<Grid divided='vertically' centered inverted id="front-grid">
 				<Grid.Row columns={1} >
 
 					<Grid.Column className='first-div'>
@@ -34,7 +34,7 @@ export default class Homepage extends Component {
 				</Grid.Row>
 
 				<Grid.Row columns={1}>
-					<Grid.Column className='second-div'>
+					<Grid.Column className='second-div' >
 						<Main />
 					</Grid.Column>
 				</Grid.Row>
@@ -49,22 +49,19 @@ export default class Homepage extends Component {
 
 
 				<Segment className='whole-footer'>
-
-
 					{/* <Container className='whole-footer' textAlign='left' > */}
-
 					<Container textAlign='center' >
-
-
+					<Grid columns={3} padded='horizontally'>
+					<Grid.Column>
 						<Image style={{ 'float': 'left' }} src={Logo} size='tiny' />
-
-						<Grid columns={2} padded='horizontally'>
+						</Grid.Column>
+						
 							<Grid.Column>
 								<Container textAlign='center'><Header as='h4'>Contact</Header></Container>
 							
 									For business inquiries or site concerns:
 									<br />
-									Email: elisabettag80@gmail.com
+									Email: grapevine.internships@gmail.com
 									<br/>
 									
       						</Grid.Column>
