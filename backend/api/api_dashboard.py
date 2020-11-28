@@ -43,7 +43,7 @@ def main(arg1):
     group_ratings = get_avg_rating_by_role(df)
     json_return = json.dumps(group_ratings, sort_keys= True)
     #Two event listeners are needed
-    print(avg_overall_rating) #first thing returned is the overall rating
+    #print(avg_overall_rating) #first thing returned is the overall rating
     print(group_ratings) #second thing returned is a json object of ratings grouped by role
     sys.stdout.flush()
     
