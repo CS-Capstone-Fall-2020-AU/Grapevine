@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { ResponsiveEmbed } from 'react-bootstrap';
 
 let companyResults;
 let co;
@@ -30,6 +31,46 @@ function getProducts() {
 		
   })
 }
+let ro;
+let reviewResults;
+let innerReview;
+let theExactReview;
+let revs = [];
+function getReviews(thatNameFinal) {
+	fetch("http://localhost:4000/reviews")
+	  .then(handleErrors)
+	  .then(res => res.json())
+	  .then(_ = (res) => {
+		reviewResults = Object.values(res.data);
+		// `reviewID`, `userID`, `internshipRating`, `role`, `companyName`, `comments`, `agreeVotes`, `location`
+		//i only want the review from here where the company is equal to company name
+		theExactReview = reviewResults.filter(element => element.companyName === thatNameFinal);
+		//console.log("this is the exact reviews", theExactReview);
+console.log("hi");
+		for (ro = 0; ro < theExactReview.length; ro++){
+			if (reviewResults && reviewResults[ro] && reviewResults[ro].companyName){
+			innerReview = {
+				reviewID: theExactReview[ro].reviewID,
+				userID: theExactReview[ro].userID,
+				internshipRating: theExactReview[ro].internshipRating,
+				role: theExactReview[ro].role,
+				companyName: theExactReview[ro].companyName,
+				comments: theExactReview[ro].comments,
+				agreeVotes: theExactReview[ro].agreeVotes,
+				location: theExactReview[ro].location, 
+				dateOfReview: theExactReview[ro].dateOfReview,
+			}
+			if (revs.length < theExactReview.length) {
+				revs.push(innerReview);
+			  }
+		}
+		else{
+			console.log();
+		}
+	}
+		
+  })
+}
 
   function fakeGetProducts() {
 	getProducts()
@@ -45,6 +86,19 @@ function getProducts() {
 	});
   }
   
+  function fakeGetReviews(thatNameDetail) {
+	getReviews(thatNameDetail)
+	return new Promise(resolve => {
+	  // Resolve after a timeout so we can see the loading indicator
+	  setTimeout(
+		() =>
+		  resolve({
+			revs
+		  }),
+		100
+	  );
+	});
+  }
   export function fetchProducts() {
 	return dispatch => {
 	  dispatch(fetchProductsBegin());
@@ -59,12 +113,13 @@ function getProducts() {
 	};
   }
 
-  export function fetchReviews() {
+  export function fetchReviews(thatName) {
 	return dispatch => {
-	  dispatch(fetchProductsBegin());
-	  return fakeGetProducts()
+	  dispatch(fetchReviewsBegin());
+	  return fakeGetReviews(thatName)
 		.then(json => {
-		  dispatch(fetchProductsSuccess(json.products));
+			//console.log("anyone", json.revs);
+		  dispatch(fetchReviewsSuccess(json.revs));
 		  return json.products;
 		})
 		.catch(error =>
@@ -93,6 +148,7 @@ function postProducts(argCO, argLO, argEM) {
 		});
 
 }
+
   export function fakePostCompanies(argC, argL, argE) {
 	  postProducts(argC, argL, argE);
 	return new Promise(resolve => {
@@ -107,6 +163,39 @@ function postProducts(argCO, argLO, argEM) {
 	  });
   }
 
+  function postTheAgrees(r_id) {
+	  console.log("after we got here");
+		fetch('http://localhost:4000/reviews', {
+		method: 'PUT',
+		 body: JSON.stringify({
+		 	agreeVotesID: r_id,
+		 }),
+		headers: { 'Content-Type': 'application/json' }
+	})
+		.then(function (response) {
+			 console.log("this is the response:", response)
+			// return response.json();
+		
+		}).then(function (body) {
+			console.log(body);
+		});
+
+}
+
+  export function fakePostAgreeVotes(riddd) {
+	  console.log("and then we got here");
+	postTheAgrees(riddd);
+  return new Promise(resolve => {
+	  // Resolve after a timeout so we can see the loading indicator
+	  setTimeout(
+		() =>
+		  resolve({
+			
+		  }),
+		10
+	  );
+	});
+}
   export function postCompanies(dataCompany, dataLogo, dataEmail) {
 	return dispatch => {
 	  dispatch(PostCompaniesBegin());
@@ -120,6 +209,21 @@ function postProducts(argCO, argLO, argEM) {
 		);
 	}
 }
+export function postAgreeVotes(ridd) {
+	console.log("incrementing agree thing");
+	fakePostAgreeVotes(ridd);
+	return dispatch => {
+	  //dispatch(PostAgreeVotesBegin());
+	  //return fakePostAgreeVotes(ridd)
+		//.then(json => {
+		  //dispatch(PostAgreeVotesSuccess());
+		  	//return 'Success';
+		//})
+		// .catch(error =>
+		//   dispatch(PostAgreeVotesFailure(error))
+		// );
+	}
+}
   //--------------------------------------------------------------------------------------
   // Handle HTTP errors since fetch won't.
   function handleErrors(response) {
@@ -127,14 +231,23 @@ function postProducts(argCO, argLO, argEM) {
 	  throw Error(response.statusText);
 	}
 	return response;
-  }
-  
+  } 
+  export const FETCH_REVIEWS_BEGIN = "FETCH_REVIEWS_BEGIN";
+  export const FETCH_REVIEWS_SUCCESS = "FETCH_REVIEWS_SUCCESS";
   export const FETCH_PRODUCTS_BEGIN = "FETCH_PRODUCTS_BEGIN";
   export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
   export const FETCH_PRODUCTS_FAILURE = "FETCH_PRODUCTS_FAILURE";
   export const POST_COMPANIES_BEGIN = "POST_COMPANIES_BEGIN";
   export const POST_COMPANIES_SUCCESS = "POST_COMPANIES_SUCCESS";
   export const POST_COMPANIES_FAILURE = "POST_COMPANIES_FAILURE";
+  export const POST_AGREE_VOTES_BEGIN = "POST_AGREE_VOTES_BEGIN";
+  export const POST_AGREE_VOTES_SUCCESS = "POST_AGREE_VOTES_SUCCESS";
+  export const POST_AGREE_VOTES_FAILURE = "POST_AGREE_VOTES_FAILURE";
+
+  export const fetchReviewsBegin = () => ({
+	type: FETCH_REVIEWS_BEGIN
+	
+  });
   
   export const fetchProductsBegin = () => ({
 	type: FETCH_PRODUCTS_BEGIN
@@ -145,6 +258,11 @@ function postProducts(argCO, argLO, argEM) {
 	type: POST_COMPANIES_BEGIN,
   });
   
+  export const fetchReviewsSuccess = (reviews) => ({
+	type: FETCH_REVIEWS_SUCCESS,
+	payload: reviews 
+  });
+
   export const fetchProductsSuccess = products => ({
 	type: FETCH_PRODUCTS_SUCCESS,
 	payload: { products }
@@ -153,6 +271,21 @@ function postProducts(argCO, argLO, argEM) {
   export const PostCompaniesSuccess = () => ({
 	type: POST_COMPANIES_SUCCESS,
 	//payload: { products }
+  });
+
+  export const PostAgreeVotesBegin = () => ({
+	type: POST_AGREE_VOTES_BEGIN,
+	//payload: { products }
+  });
+  
+  export const PostAgreeVotesSuccess = () => ({
+	type: POST_AGREE_VOTES_SUCCESS,
+	payload: { products }
+  });
+  
+  export const PostAgreeVotesFailure = (error) => ({
+	type: POST_AGREE_VOTES_FAILURE,
+	payload: { error }
   });
   
   
