@@ -4,8 +4,7 @@ import sys
 import sklearn
 import mysql.connector
 import os
-def train_model():
-    pass
+#python_api api_password420!
 
 def main():
     #First load all the necessary things
