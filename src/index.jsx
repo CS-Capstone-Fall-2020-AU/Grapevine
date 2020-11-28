@@ -7,16 +7,22 @@ import 'semantic-ui-css/semantic.min.css'
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
 
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
+export const persistor = persistStore(store);
 
 ReactDOM.render(
 
     <Provider store={store}>
-    <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>,
  
   document.getElementById('root')
