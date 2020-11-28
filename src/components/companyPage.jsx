@@ -3,11 +3,12 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { Button, Popup, Checkbox, Form, Table, Container, Rating, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
+import { Button, Popup, Checkbox, Message, Form, Table, Container, Rating, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import HeaderSubHeader from 'semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader';
 import { Feed } from 'semantic-ui-react'
 import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes } from "../store/actions/companyActions";
+import { getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
@@ -47,11 +48,14 @@ let ratingsNum = 0;
 let reviews;
 let finalOverallGrade = '';
 let activeIndex;
-
+let iconDef;
 class CompanyPage extends Component {
 	state = {
 		agreeVoteFakeState: 0,
 		buttonClick: false,
+		reviewLoggedIn: false,
+		reviewButtonClicked: false,
+
 
 	}
 
@@ -62,7 +66,26 @@ class CompanyPage extends Component {
 	}
 
 
-	handleAddReviewClick = (Event) =>{
+	handleAddReviewClick = (Event) => {
+		console.log("maade it");
+		this.setState({ reviewButtonClicked: true })
+		if ((!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error')) {
+			console.log("you are logged in and you can do it");
+			this.setState({ reviewLoggedIn: true })
+			// this.setState({loggedIn: true})
+			// this.setState({addReviewButtonClick: true})
+			//they are logged in, grab their username
+			//they can add the review spawn add review form
+			//once we submit the form there is gonna be `reviewID`, `userID`, `internshipRating`, `role`, `companyName`, `comments`, `agreeVotes`, `location`, `dateOfReview`
+			//we'd have to do a get to logins, cross reference userid with their username and anon setting and do it that way
+
+		}
+		else {
+			//they are not logged in
+			console.log("you are not logged in");
+			this.setState({ reviewLoggedIn: false })
+
+		}
 		//check if they are logged in
 		//how do we know if they are logged in, gonna need a global state
 		//if they are logged or if they are anonymous, then give them a form to fill out
@@ -157,9 +180,12 @@ class CompanyPage extends Component {
 					<Divider />
 
 
-					<Button onClick ={this.handleAddReviewClick}style={{'float': 'right'}}size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
-
-
+					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
+					{((this.state.reviewLoggedIn === false) && (this.state.reviewButtonClicked)) ? <Message warning size='mini'>
+						<Message.Header>You must Login or go anonymous before you can add a review!</Message.Header>
+						<p>Visit our <a href ='/login'>login</a> page, then try again.</p>
+					</Message>:''}
+					{((this.state.reviewLoggedIn === true) && (this.state.reviewButtonClicked)) ? console.log("opening your modal in a sec"):''}
 					<Feed>
 
 						{/* for each review in reviews map a feed section */}
@@ -243,7 +269,9 @@ const mapStateToProps = state => ({
 	reviewsLoading: state.reviews.loading,
 	products: state.products.items,
 	loading: state.products.loading,
-	error: state.products.error
+	error: state.products.error,
+	usersLogins: state.users.logins,
+	usersLoginsLoading: state.users.loginsLoading,
 });
 //might have to send up to a state and have agree votes as a state
 const mapDispatchToProps = (dispatch) => {

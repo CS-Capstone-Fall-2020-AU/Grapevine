@@ -17,9 +17,7 @@ import searchReducer from '../store/reducers/searchReducer';
 import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
 import {persistor} from '../index.jsx'
-
-
-// import { persistStore } from 'redux-persist';
+//check signup for persistor problems
 
 
 var activeItem;
