@@ -7,10 +7,17 @@ import faker from 'faker'
 import { Button, Sticky, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../images/fourth.png';
+import Logo from '../images/finalelogo3.png';
 import { connect } from 'react-redux';
-import { fetchProducts} from "../store/actions/companyActions";
+import { fetchProducts } from "../store/actions/companyActions";
+import { getLogins } from "../store/actions/loginActions";
 import searchReducer from '../store/reducers/searchReducer';
+// import { PURGE, REHYDRATE } from 'redux-persist';
+// import { persistor } from '../index.jsx'
+import { PURGE } from 'redux-persist';
+import persistConfig from '../store/reducers/rootReducer'
+import {persistor} from '../index.jsx'
+//check signup for persistor problems
 
 
 var activeItem;
@@ -26,10 +33,10 @@ class Navigation extends Component {
 	//shake and then turn the app dark
 	state = {
 		anon: false,
-		
+
 	}
-	handleRateAnon = () =>{
-		this.setState({anon: true});
+	handleRateAnon = () => {
+		this.setState({ anon: true });
 	}
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 	handleSearchChange = (e, data) => {
@@ -49,69 +56,82 @@ class Navigation extends Component {
 			this.props.finalSearch(isMatch);
 		}, 300)
 	}
+	onPurgeStoredState(e) { 
 
+		alert("making our way here");
+		persistor.purge();
+	
+   }
 
 
 	render() {
 		return (
 			<Sticky>
-				{(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')}
-			<Menu id="nav-menu">
-				<Menu.Item
-					name='Grapevine'
-					active={activeItem === 'Grapevine logo'}
-					onClick={this.handleItemClick}
-					href='/'>
-					<img src={Logo} alt="Grapevine logo" />
+				{/* {(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')} */}
+				<Menu id="nav-menu">
+					<Menu.Item
+						name='Grapevine'
+						active={activeItem === 'Grapevine logo'}
+						onClick={this.handleItemClick}
+						href='/'>
+						<img src={Logo} alt="Grapevine logo" />
 
-				</Menu.Item>
+					</Menu.Item>
 
-				<Menu.Item
-					name='Companies'
-					active={activeItem === 'Internship Companies'}
-					onClick={this.handleItemClick}
-					href='/companies'
-				/>
-				<Menu.Item
-					name='Ratings'
-					active={activeItem === 'ratings'}
-					onClick={this.handleItemClick}
-					href = '/ratings'
-				/>
-
-				<Menu.Item
-					name='About'
-					active={activeItem === 'about'}
-					onClick={this.handleItemClick}
-					href='/about'
-				/>
-
-				{/* search by company, search by rating, search by location */}
-				<Menu.Item >
-					<Search
-						loading={this.props.search.loading}
-						onResultSelect={(e, data) =>
-							this.props.updateSelection(data.result.title)
-
-						}
-						onSearchChange={this.handleSearchChange}
-						results={this.props.search.results}
-						value={this.props.search.value}
+					<Menu.Item
+						name='Companies'
+						active={activeItem === 'Internship Companies'}
+						onClick={this.handleItemClick}
+						href='/companies'
+					/>
+					<Menu.Item
+						name='Ratings'
+						active={activeItem === 'ratings'}
+						onClick={this.handleItemClick}
+						href='/ratings'
 					/>
 
-				</Menu.Item>
+					<Menu.Item
+						name='About'
+						active={activeItem === 'about'}
+						onClick={this.handleItemClick}
+						href='/about'
+					/>
 
+					{/* search by company, search by rating, search by location */}
+					<Menu.Item >
+						<Search
+							loading={this.props.search.loading}
+							onResultSelect={(e, data) =>
+								this.props.updateSelection(data.result.title)
 
-				<Menu.Menu position='right'>
-					<Menu.Item>
-						<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
+							}
+							onSearchChange={this.handleSearchChange}
+							results={this.props.search.results}
+							value={this.props.search.value}
+						/>
+
 					</Menu.Item>
 
-					<Menu.Item href='/login'>
-						<Button primary>Sign Up/Login</Button>
-					</Menu.Item>
-				</Menu.Menu>
-			</Menu>
+
+					<Menu.Menu position='right'>
+						<Menu.Item>
+							<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
+						</Menu.Item>
+					
+						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ?
+							<Menu.Item href='/login' onClick={this.onPurgeStoredState}>
+								<Button primary><Icon name='user circle'></Icon>{this.props.usersLogins.username}</Button>
+								{console.log('inside resist', this.props.usersLogins)}
+							</Menu.Item> :
+							<Menu.Item href='/login'>
+								<Button primary>Sign Up/Login</Button>
+							</Menu.Item>}
+
+
+
+					</Menu.Menu>
+				</Menu>
 			</Sticky>
 
 		);
@@ -124,7 +144,9 @@ const mapStateToProps = (state) => {
 		search: state.search,
 		products: state.products.items,
 		loading: state.products.loading,
-		error: state.products.error
+		error: state.products.error,
+		usersLogins: state.users.logins,
+		usersLoginsLoading: state.users.loginsLoading,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
@@ -133,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
 		startSearch: (dataValue) => dispatch({ type: 'START_SEARCH', query: dataValue }),
 		cleanQuery: () => dispatch({ type: 'CLEAN_QUERY' }),
 		finalSearch: (isMatching) => dispatch({ type: 'FINISH_SEARCH', results: _.filter(source, isMatching) },),
-		updateSelection: (dataTitlesValue) => dispatch({ type: 'UPDATE_SELECTION', selection: dataTitlesValue })
+		updateSelection: (dataTitlesValue) => dispatch({ type: 'UPDATE_SELECTION', selection: dataTitlesValue }),
+	
 	}
 }
 
