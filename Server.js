@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const nodemailer = require("nodemailer");
 app.use(bodyParser.json());
+const spawn = require("child_process").spawn;
 
 // let testAccount = await nodemailer.createTestAccount();
 app.post('/email', (req, res) => {
@@ -85,11 +86,17 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  con.query('SELECT * FROM `reviews`', (err, results) => {
+  con.query('SELECT * FROM `reviews` where `flag`=2', (err, results) => {
     if (err) {
       return res.send(error);
     }
     else {
+     console.log("this is the length of results", results.length);
+      if (results.length % 10 === 0){
+        console.log("sending items");
+        //const pythonProcess = spawn('python',["path/to/script.py", results]);
+
+      }
       return res.json({
         data: results
       })
