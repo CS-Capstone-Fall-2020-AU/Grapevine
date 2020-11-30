@@ -4,7 +4,26 @@ import sys
 import sklearn
 import mysql.connector
 import os
+import nltk
+from stop_words import get_stop_words
+import re
+
+
+stop_words = get_stop_words('en') 
 #python_api api_password420!
+
+def tokenize_data(text):
+    text = text.lower()
+    text = re.sub('[!@#$%^&*-+=_]', '', text)
+    text = nltk.word_tokenize(text)
+    text = [word for word in text if word not in stop_words]
+    text = [word for word in text if len(word) > 2]
+    #pbar.update(1)
+    return text
+
+def tknz(col):
+    return [tokenize_data(row) for row in col]
+
 
 def main():
     #First load all the necessary things
@@ -13,11 +32,7 @@ def main():
     clf = load(path + '\\model\\linearSVC.joblib')
 
     squery = 'SELECT * FROM `reviews` WHERE `flag`=2'
-    uquery = ''
-    #TEST FOR THE LOADED FITTED MODELS INITIALLY
-    #string = ["This is a test review to be vectorized to see if the vectorizer works from joblib"]
-    #print(type(vectorizer.transform(string)))
-    #print(clf.predict(vectorizer.transform(string)))
+    uquery = 'UPDATE `reviews` SET `flag` = %s WHERE `reviewID` = %s'
 
     print()
     try:
@@ -38,24 +53,29 @@ def main():
             print("You're connected to database: ", record)
             #do the actual processing we care about
             df = pd.read_sql(squery, connection)
+            
+            if len(df.reviewID) > 0:
 
-            predictions = []
-            for review in df.comments:
-                x = vectorizer.transform(review)
-                predictions.append(clf.predict(list(x)))
-            predictions = [predictions[0] for _ in predictions]
-            #Send an update function replace flag with the predictions integers
-            connection._execute_query(uquery)
+                df['tokens'] = tknz(df.comments)
+                doc = [" ".join(i) for i in df.tokens]
+                X = vectorizer.transform(doc)
+                predictions = clf.predict(X)
+                
+                for rid, pred in zip(df.reviewID, predictions):
+                    vals = (str(pred), str(rid))
+                    cursor.execute(uquery, vals)
+                connection.commit()
+            else:
+                print("There are no predictions to make")
 
-
-
-    except mysql.Error as e:
+    except mysql.connector.Error as e:
         print("except")
         print("Error while connecting to MySQL", e)
     finally:
         if (connection.is_connected()):
             cursor.close()
             connection.close()
+            print()
             print("MySQL connection is closed")
 if __name__ == "__main__":
     main() #Argument should be a batch json of reviews for any company
