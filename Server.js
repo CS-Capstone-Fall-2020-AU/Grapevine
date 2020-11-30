@@ -86,21 +86,10 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  con.query('SELECT * FROM `reviews` where `flag`=2', (err, results) => {
-    if (err) {
-      return res.send(error);
-    }
-    else {
-     console.log("this is the length of results", results.length);
-      if (results.length % 10 === 0){
-        console.log("sending items");
-        //const pythonProcess = spawn('python',["path/to/script.py", results]);
+  const pythonProcess = spawn('python',["backend/api/api_model.py"]);
 
-      }
-      return res.json({
-        data: results
-      })
-    }
+  pythonProcess.stdout.on('data', (data) =>{
+    console.log(data)
   });
 })
 
