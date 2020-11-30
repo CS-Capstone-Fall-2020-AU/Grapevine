@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 app.use(bodyParser.json());
 const spawn = require("child_process").spawn;
 
+let reviewTestCount = 0;
 // let testAccount = await nodemailer.createTestAccount();
 app.post('/email', (req, res) => {
   const body = (req.body);
@@ -91,12 +92,20 @@ app.get('/reviews', (req, res) => {
       return res.send(error);
     }
     else {
-     console.log("this is the length of results", results.length);
-      if (results.length % 10 === 0){
-        console.log("sending items");
-        //const pythonProcess = spawn('python',["path/to/script.py", results]);
-
-      }
+     //console.log("this is the length of results", results);
+     
+     //want to get the next ten
+     //this is going
+      // if (results.length % 10 === 0){
+        
+      //   console.log("sending items");
+      //   const pythonProcess = spawn('python',['./src/api/api_model.py', results]);
+      //   pythonProcess.stdout.on('data', (data) => {
+      //     console.log("this is drew's data", JSON.stringify(data));
+      //     console.log("we made it");
+      // });
+      // console.log("did we make it out of that function");
+      // }
       return res.json({
         data: results
       })
@@ -117,7 +126,7 @@ app.post('/companies', (req, result) => {
   });
   result.send({ message: 'Success' })
 });
-
+ 
 
 app.post('/users', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
@@ -137,7 +146,7 @@ app.post('/reviews', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
   console.log("this?", typeof (req), "and", typeof (req.body));
   const body = (req.body);
-  var practice3 = 'INSERT INTO `reviews`(`reviewID`, `userID`, `internshipRating`, `role`, `companyName`, `comments`, `agreeVotes`, `location`, `dateOfReview`) VALUES ("' + body.reviewID + '", "' + body.userID + '", "' + body.internshipRating + '", "' + body.role + '", "' + body.companyName + '", "' + body.comments + '", "' + body.agreeVotes + '", "' + body.location + '", "' + body.dateOfReview + '")'
+  var practice3 = 'INSERT INTO `reviews`(`userID`, `internshipRating`, `role`, `companyName`, `comments`, `location`, `isAnonymous`, `username`) VALUES ("' + body.userID + '", "' + body.internshipRating + '", "' + body.role + '", "' + body.companyName + '", "' + body.comments + '", "' + body.location + '", "' + body.isAnonymous + '", "' + body.username + '")'
   con.query(practice3, function (err, result) {
     if (err) throw err;
     console.log("Inserted review " + result);

@@ -34,7 +34,7 @@ function getProducts() {
 let ro;
 let reviewResults;
 let innerReview;
-let theExactReview;
+let theExactReview =[];
 let revs = [];
 function getReviews(thatNameFinal) {
 	fetch("http://localhost:4000/reviews")
@@ -42,11 +42,14 @@ function getReviews(thatNameFinal) {
 	  .then(res => res.json())
 	  .then(_ = (res) => {
 		reviewResults = Object.values(res.data);
-		// `reviewID`, `userID`, `internshipRating`, `role`, `companyName`, `comments`, `agreeVotes`, `location`
-		//i only want the review from here where the company is equal to company name
-		theExactReview = reviewResults.filter(element => element.companyName === thatNameFinal);
-		//console.log("this is the exact reviews", theExactReview);
-console.log("hi");
+		
+		
+		for (let ir = 0; ir < reviewResults.length; ir++){
+			if (String(reviewResults[ir].companyName).includes(thatNameFinal)){
+				theExactReview.push(reviewResults[ir]);
+			}
+		}
+
 		for (ro = 0; ro < theExactReview.length; ro++){
 			if (reviewResults && reviewResults[ro] && reviewResults[ro].companyName){
 			innerReview = {
@@ -59,6 +62,8 @@ console.log("hi");
 				agreeVotes: theExactReview[ro].agreeVotes,
 				location: theExactReview[ro].location, 
 				dateOfReview: theExactReview[ro].dateOfReview,
+				isAnonymous: theExactReview[ro].isAnonymous,
+				username: theExactReview[ro].username,
 			}
 			if (revs.length < theExactReview.length) {
 				revs.push(innerReview);
@@ -224,6 +229,58 @@ export function postAgreeVotes(ridd) {
 		// );
 	}
 }
+function postReview(titlesss, useridsss, ratingsss, rolesss, commentsss, locationsss, isanosss, usernamesss) {
+	fetch('http://localhost:4000/reviews', {
+		method: 'POST',
+		body: JSON.stringify({
+			reviewID: 0,
+			companyName: titlesss,
+			userID: useridsss,
+			internshipRating: ratingsss,
+			role: rolesss,
+			comments: commentsss,
+			location: locationsss,
+			isAnonymous: isanosss,
+			username: usernamesss,
+		}),
+		headers: { 'Content-Type': 'application/json' }
+	})
+		.then(function (response) {
+			//this is the line that is giving me the error
+			return response.json()
+		}).then(function (body) {
+			console.log(body);
+		});
+
+}
+function fakePostReview(titless, useridss, ratingss, roless, commentss, locationss, isanoss, usernamess) {
+	postReview(titless, useridss, ratingss, roless, commentss, locationss, isanoss, usernamess);
+  return new Promise(resolve => {
+	  // Resolve after a timeout so we can see the loading indicator
+	  setTimeout(
+		() =>
+		  resolve({
+			
+		  }),
+		10
+	  );
+	});
+}
+
+export function postAddReview(titles, userids, ratings, roles, comments, locations, isanos, usernames) {
+	return dispatch => {
+	  dispatch(PostAddReviewBegin());
+	  return fakePostReview(titles, userids, ratings, roles, comments, locations, isanos, usernames)
+		.then(json => {
+		  dispatch(PostAddReviewSuccess());
+		  //fetchReviews(titles)
+		  	return 'Success';
+		})
+		.catch(error =>
+		  dispatch(PostAddReviewFailure(error))
+		);
+	}
+}
   //--------------------------------------------------------------------------------------
   // Handle HTTP errors since fetch won't.
   function handleErrors(response) {
@@ -243,17 +300,30 @@ export function postAgreeVotes(ridd) {
   export const POST_AGREE_VOTES_BEGIN = "POST_AGREE_VOTES_BEGIN";
   export const POST_AGREE_VOTES_SUCCESS = "POST_AGREE_VOTES_SUCCESS";
   export const POST_AGREE_VOTES_FAILURE = "POST_AGREE_VOTES_FAILURE";
+  export const POST_ADD_REVIEW_BEGIN = "POST_ADD_REVIEW_BEGIN";
+  export const POST_ADD_REVIEW_SUCCESS = "POST_ADD_REVIEW_SUCCESS";
+  export const POST_ADD_REVIEW_FAILURE = "POST_ADD_REVIEW_FAILURE";
 
   export const fetchReviewsBegin = () => ({
 	type: FETCH_REVIEWS_BEGIN
-	
   });
   
   export const fetchProductsBegin = () => ({
 	type: FETCH_PRODUCTS_BEGIN
 	
   });
+  export const PostAddReviewBegin = () => ({
+	type: POST_ADD_REVIEW_BEGIN,
+  });
+  export const PostAddReviewSuccess = () => ({
+	type: POST_ADD_REVIEW_SUCCESS,
 
+  });
+  export const PostAddReviewFailure = (error) => ({
+	type: POST_ADD_REVIEW_FAILURE,
+	payload: { error }
+  });
+  
   export const PostCompaniesBegin = () => ({
 	type: POST_COMPANIES_BEGIN,
   });

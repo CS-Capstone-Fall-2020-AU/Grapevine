@@ -4,6 +4,9 @@ import {
 	POST_AGREE_VOTES_BEGIN,
 	POST_AGREE_VOTES_SUCCESS,
 	POST_AGREE_VOTES_FAILURE,
+	POST_ADD_REVIEW_BEGIN,
+	POST_ADD_REVIEW_SUCCESS,
+	POST_ADD_REVIEW_FAILURE,
 } from "../actions/companyActions";
 
 const initialState = {
@@ -14,6 +17,30 @@ const initialState = {
 
 const reviewsReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case POST_ADD_REVIEW_FAILURE:
+			// Mark the state as "loading" so we can show a spinner or something
+			// Also, reset any errors. We're starting fresh.
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
+		case POST_ADD_REVIEW_BEGIN:
+			// Mark the state as "loading" so we can show a spinner or something
+			// Also, reset any errors. We're starting fresh.
+			return {
+				...state,
+				loading: true,
+				error: null
+			};
+		case POST_ADD_REVIEW_SUCCESS:
+			// Mark the state as "loading" so we can show a spinner or something
+			// Also, reset any errors. We're starting fresh.
+			return {
+				...state,
+				loading: false,
+				error: null
+			};
 		case FETCH_REVIEWS_BEGIN:
 			// Mark the state as "loading" so we can show a spinner or something
 			// Also, reset any errors. We're starting fresh.
@@ -43,14 +70,14 @@ const reviewsReducer = (state = initialState, action) => {
 			console.log("incrementing agree votes");
 			return {
 				...state,
-			  };
-			// All done: set loading "false".
-			// Also, replace the items with the ones from the server
-			// return {
-			// 	...state,
-			// 	loading: false,
-			// 	items: action.payload
-			// };
+			};
+		// All done: set loading "false".
+		// Also, replace the items with the ones from the server
+		// return {
+		// 	...state,
+		// 	loading: false,
+		// 	items: action.payload
+		// };
 		case POST_AGREE_VOTES_FAILURE:
 			return {
 				...state,

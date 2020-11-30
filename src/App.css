@@ -137,11 +137,11 @@ div.equal.width.row{
 }
 
 .first-div{
-  /* background-image: url("images/freshgraps6.png"); 
+   /* background-image: url("images/freshgraps6.png"); 
   background-repeat: repeat; /* Do not repeat the image */
 
-  /* background-position: center;  */
-  background-color: rgba(49, 38, 38, 0.76);
+   /* background-position: center;     */
+  background-color: rgba(49, 38, 38, 0.76); 
  
    /* Do not repeat the image */
 
@@ -161,9 +161,9 @@ div.equal.width.row{
 #front-grid{
   background-image: url("images/freshgraps6.png"); 
 
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: 18%; /* Resize the background image to cover the entire container */
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: 18%; 
 }
 
 #review-paging{

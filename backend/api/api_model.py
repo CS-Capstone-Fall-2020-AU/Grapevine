@@ -5,11 +5,15 @@ import sklearn
 
 
 def main(arg1):
+    print(arg1)
     df = pandas.read_json(arg1)
     clf = load("model/linearSVC.joblib")
     vec = load("model/vectorizer.joblib")
     predictions = []
+    print("we got to the first part")
     for review in df.comments:
+        #print(df.comments[review])
+        print("hello")
         x = vec.transform(review)
         predictions.append(clf.predict(x))
     df["flag"] = predictions

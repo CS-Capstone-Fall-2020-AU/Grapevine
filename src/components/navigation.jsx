@@ -122,7 +122,6 @@ class Navigation extends Component {
 						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ?
 							<Menu.Item href='/login' onClick={this.onPurgeStoredState}>
 								<Button primary><Icon name='user circle'></Icon>{this.props.usersLogins.username}</Button>
-								{console.log('inside resist', this.props.usersLogins)}
 							</Menu.Item> :
 							<Menu.Item href='/login'>
 								<Button primary>Sign Up/Login</Button>
