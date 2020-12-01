@@ -27,7 +27,7 @@ app.post('/email', (req, res) => {
     bcc: "grapevine.internships@gmail.com",
     subject: "Welcome to Grapevine!", // Subject line
     // plain text body
-    html: "<b>Hi " +  body.username + ", you're now hearing about internships through grapevine!</b><p>You've successfully signed up for an account on grapevine! We are excited for you to hear about your next internship through grapevine! If you did not sign up for an account, please reply 'stop' to this message, and your account will be deactivated. <br/> <br /> Thanks for being a member of our community! <br /> <br /> -Grapevine_Support</p>", // html body
+    html: "<b>Hi " + body.username + ", you're now hearing about internships through grapevine!</b><p>You've successfully signed up for an account on grapevine! We are excited for you to hear about your next internship through grapevine! If you did not sign up for an account, please reply 'stop' to this message, and your account will be deactivated. <br/> <br /> Thanks for being a member of our community! <br /> <br /> -Grapevine_Support</p>", // html body
   });
 
   transporter.sendMail(info, function (err, data) {
@@ -87,31 +87,38 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  con.query('SELECT * FROM `reviews` where `flag`=2', (err, results) => {
+  var childProcess = require("child_process").spawn('python', ["backend/api/reset_test.py"], { stdio: "inherit" })
+   childProcess.on('data', function (data) {
+     process.stdout.write("python script output", data);
+   });
+   childProcess.on('close', function (code) {
+     if (code === 1) {
+       process.stderr.write("error occured", code);
+       process.exit(1);
+     }
+     else {
+       process.stdout.write('"python script successfully exist with code: ' + code + '\n');
+     }
+   });
+   //---------------------------------------------------------------------------------------
+  con.query('SELECT * FROM `reviews` where `flag`!=1', (err, results) => {
     if (err) {
       return res.send(error);
     }
     else {
-     //console.log("this is the length of results", results);
-     
-     //want to get the next ten
-     //this is going
-      // if (results.length % 10 === 0){
-        
-      //   console.log("sending items");
-      //   const pythonProcess = spawn('python',['./src/api/api_model.py', results]);
-      //   pythonProcess.stdout.on('data', (data) => {
-      //     console.log("this is drew's data", JSON.stringify(data));
-      //     console.log("we made it");
-      // });
-      // console.log("did we make it out of that function");
-      // }
+   
       return res.json({
         data: results
       })
     }
   });
 })
+
+
+  
+
+
+
 
 
 //----------------------------------------------------------------POST---------------------------------------------------------------------------
@@ -126,7 +133,7 @@ app.post('/companies', (req, result) => {
   });
   result.send({ message: 'Success' })
 });
- 
+
 
 app.post('/users', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
