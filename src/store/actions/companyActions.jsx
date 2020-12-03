@@ -281,6 +281,13 @@ export function postAddReview(titles, userids, ratings, roles, comments, locatio
 		);
 	}
 }
+
+// export function sendingReviewLength(numberR) {
+// 	return dispatch => {
+	
+// 		console.log("looky here", numberR)
+// 	}
+// }
   //--------------------------------------------------------------------------------------
   // Handle HTTP errors since fetch won't.
   function handleErrors(response) {

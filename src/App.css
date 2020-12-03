@@ -3,120 +3,34 @@
   
 }
 
+
 .dark-style{
   background-color: #aeb1b3;
   
 
 }
 
-
 button.ui.primary.button{
   background-color: #4c96d7 !important;
 }
 
-.App-logo {
-  height: 25vmin;
-  pointer-events: none;
-  position: absolute;
-  display: block;
-}
-
-/* #rev1{
-  position: absolute;
-  top: 20%;
-  left: 56%;
- 
-  
-}
-#rev2{
-  position: absolute;
-  top: 16%;
-  left: 28%;
-  
-}
-
-#rev3{
-  position: absolute;
-  top: 2%;
-  left: 55%;
-  
-} */
-
-
-
-.second-div{
-  margin: 4%;
- 
-  
-}
 
 
 
 #logo{
  margin: auto;
- z-index: 1;
- position:relative;
   
 }
-
-#nav-menu{
-  height: 4rem;
-
-   /* background-image: url("https://media.giphy.com/media/USmD");
-
-  background-position: center; 
-  background-repeat: repeat;
-  background-size: 7%;   */
-
-}
-
-
-
 
 .ratings-table{
-  width: 70% !important;
+  width: 80% !important;
   height: min-content !important;
   overflow-y: scroll !important;
- 
-}
-
-.fourth-div{
-  background-color: white; 
-  /* background-image: linear-gradient(#8FBC8F, #993366);  */
-  /* min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin); */
-  color: white;
-  
-}
-
-
-    
-  /* border: solid black; */
-
-#logo-footer{
-position: relative;
-margin: auto;
-  
- 
-}
-#logo-footer-label{
-  
-  background-color: transparent;
-  border: none;
- 
- 
-}
-
-
-.whole-footer{
-
-  background-color: rgba(161, 151, 170, 0.288) !important;
-  width: 100%;
 
 }
-.column{
+
+
+.footer{
   
   display: flex;
   justify-content: center;
@@ -137,13 +51,14 @@ div.equal.width.row{
 }
 
 .first-div{
-   /* background-image: url("images/freshgraps6.png"); 
-  background-repeat: repeat; /* Do not repeat the image */
-
-   /* background-position: center;     */
-  background-color: rgba(49, 38, 38, 0.76); 
+ 
+    background-position: center;     
+  
  
    /* Do not repeat the image */
+   /* background: rgb(199,145,153);
+background: radial-gradient(circle, rgba(199,145,153,1) 35%, rgba(181,198,145,1) 100%); */
+
 
  
 }
@@ -158,19 +73,13 @@ div.equal.width.row{
    
 }
 
-#front-grid{
-  background-image: url("images/freshgraps6.png"); 
-
-  background-position: center; 
-  background-repeat: no-repeat; 
-  background-size: 18%; 
-}
-
-#review-paging{
-
-}
-
 
 .ui.inverted[class*="vertically divided"].grid>.row:before {
   box-shadow: none !important;
+}
+
+body, html {
+   height: max-content !important;
+  /* min-height: 100% !important; */
+  
 }

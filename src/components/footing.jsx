@@ -16,9 +16,10 @@ export default class Footing extends Component {
 	render() {
 		return (
 
-			<Grid columns={3} className='footer' padded='horizontally' style={{ 'backgroundColor': 'rgba(161, 151, 170, 0.288)' }}>
-				<Grid.Column>
-					<Image style={{ 'float': 'left' }} src={Logo} size='tiny' />
+			<Grid columns={3} style={{ 'backgroundColor': 'rgba(161, 151, 170, 0.288)'}}>
+				<Grid.Column><Container textAlign='center'>
+					<Image src={Logo} size='tiny' style={{'margin': 'auto'}} />
+					</Container>
 				</Grid.Column>
 				<Grid.Column>
 					<Container textAlign='center'><Header as='h4'>Contact</Header>
@@ -39,6 +40,7 @@ export default class Footing extends Component {
 
 				</Grid.Column>
 			</Grid>
+
 		
 
 		);

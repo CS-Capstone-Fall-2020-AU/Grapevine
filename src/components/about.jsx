@@ -27,7 +27,7 @@ export default class About extends Component {
 					<p>
 						Grapevine will be a place where students, both undergraduate and
 						graduate, can collectively build knowledge on different internships that are available. Users will
-						be able to create internship pages for a company, and then post ratings and comments so that
+						be able to create internship pages for a company, and then post ratings so that
 						other students doing research can make more informed decisions when deciding between offers
 						or even just researching the kind of work that they would like to do. Conversely, universities can
 						utilize these company pages as resources when advertising recruiting events to let students

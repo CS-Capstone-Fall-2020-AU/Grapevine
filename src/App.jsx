@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Main from './components/main';
 import Navigation from './components/navigation';
-import { Button, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
+import { Button, Modal, Label, List, Menu, Container, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import Logo from './images/grLogo.png';
 import rev1 from './images/fakerev4.png';
 import rev2 from './images/fakerev7.png';
@@ -16,6 +16,8 @@ import Homepage from './components/homepage'
 import Companies from './components/companies'
 import CompanyPage from './components/companyPage';
 import Login from './components/login';
+import Footing from './components/footing'
+
 
 
 
@@ -23,10 +25,10 @@ import Login from './components/login';
 function App() {
   return (
     
-    <div className="App">
-      
+ <span>
+    
       <Router>
-      <Navigation />
+   
         <Switch>
           <Route path='/about' exact component={About} />
           <Route path='/companies' exact component={Companies} />
@@ -36,12 +38,15 @@ function App() {
         </Switch>
 
 
-
-
-
-
       </Router>
-    </div>
+      <br />
+      <br />
+      <br />
+      <Divider hidden/>
+    <Footing />
+
+      </span>
+     
   );
 }
 

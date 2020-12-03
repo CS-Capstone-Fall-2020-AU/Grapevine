@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/companies', (req, res) => {
-  con.query('SELECT * FROM `companies`', (err, results) => {
+  con.query('SELECT * FROM `companies` order by `companyName`', (err, results) => {
     if (err) {
       return res.send(error);
     }

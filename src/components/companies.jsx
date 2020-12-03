@@ -49,7 +49,7 @@ class Companies extends Component {
 		const { error, loading, products } = this.props;
 
 		return (
-			<Segment basic>
+			<span>
 				
 				<Modal
 					size='tiny'
@@ -92,7 +92,7 @@ class Companies extends Component {
 						/>
 					</Modal.Actions>
 				</Modal>
-
+<br />
 				<Container textAlign='center'>	<Header>Find a company </Header></Container>
 
 				<Container textAlign='right'>
@@ -124,7 +124,7 @@ class Companies extends Component {
 				</Container>
 
 
-			</Segment>
+				</span>
 		);
 	}
 }

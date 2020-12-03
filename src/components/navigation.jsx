@@ -7,7 +7,7 @@ import faker from 'faker'
 import { Button, Sticky, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../images/finalelogo3.png';
+import Logo from '../images/jv7000.png';
 import { connect } from 'react-redux';
 import { fetchProducts } from "../store/actions/companyActions";
 import { getLogins } from "../store/actions/loginActions";
@@ -66,15 +66,15 @@ class Navigation extends Component {
 
 	render() {
 		return (
-			<Sticky>
-				{/* {(this.state.anon)? document.getElementsByClassName("App")[0].classList.add("dark-style") : console.log('')} */}
-				<Menu id="nav-menu">
+			<span>
+				<Sticky>
+				<Menu >
 					<Menu.Item
 						name='Grapevine'
 						active={activeItem === 'Grapevine logo'}
 						onClick={this.handleItemClick}
 						href='/'>
-						<img src={Logo} alt="Grapevine logo" />
+						<img style={{'width':'4em'}} src={Logo} size='medium' alt="Grapevine logo" />
 
 					</Menu.Item>
 
@@ -98,7 +98,7 @@ class Navigation extends Component {
 						href='/about'
 					/>
 
-					{/* search by company, search by rating, search by location */}
+				
 					<Menu.Item >
 						<Search
 							loading={this.props.search.loading}
@@ -130,8 +130,8 @@ class Navigation extends Component {
 
 
 					</Menu.Menu>
-				</Menu>
-			</Sticky>
+				</Menu></Sticky>
+				</span>
 
 		);
 	}

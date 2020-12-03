@@ -7,7 +7,7 @@ import { Button, Popup, Checkbox, Message, Form, Table, Container, Rating, Modal
 import App from '../App'
 import HeaderSubHeader from 'semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader';
 import { Feed } from 'semantic-ui-react'
-import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview } from "../store/actions/companyActions";
+import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview, } from "../store/actions/companyActions";
 import { getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -79,7 +79,11 @@ class CompanyPage extends Component {
 		this.props.fetchCompanies();
 		titleOfCompany = this.props.data.match.params.id;
 		this.props.fetchRevs(titleOfCompany);
+		
 	}
+	// getSnapshotBeforeUpdate(){
+	// 	console.log("properrr length", this.props.reviews.length);
+	// }
 
 	handleAddedReviewSuccess = () => {
 		this.setState({ reviewSuccessMessage: true })
@@ -169,17 +173,18 @@ class CompanyPage extends Component {
 
 			}
 		}
-
+//this.props.reviews.length should be posted to company in reviews
 		return (
 
 			//need to grab reviews by the company name
 			//fetch from two places: first from company, then from reviews, so pull data from company
 			//THIS IS NOT AS EFFICIENT AS IT CAN BE DO COME BACK HERE
 			// style={{ 'backgroundColor': '#c3becc' }}
-			<Segment attached basic>
+			<span>
 				{console.log("reviews, here", this.props.reviews)}
 				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
 					<Header><Image src={imglink} avatar />{titleOfCompany}</Header>
+					
 
 					<Table celled >
 						<Table.Header>
@@ -199,7 +204,7 @@ class CompanyPage extends Component {
 								</Table.Cell>
 								{/* this is all the grades added up divided by ratingsnum */}
 								{/* for each grade, convert it into a value */}
-
+								{/* {this.props.sendReviewLengthToCompany(this.props.reviews.length)} */}
 								<Table.Cell textAlign='right'>{(avg ? avg : '')}% <br /><a href='#'>{this.props.reviews.length} interns</a></Table.Cell>
 								<Table.Cell>
 									Learned a lot, informational presentations, strong networking (need to make function that does this)
@@ -338,12 +343,13 @@ class CompanyPage extends Component {
 							</Feed.Event>
 
 						))}
+
 					</Feed>
 
 
 				</Container>
 
-			</Segment>
+				</span>
 		);
 	}
 }
@@ -366,6 +372,7 @@ const mapDispatchToProps = (dispatch) => {
 		fetchRevs: (theCName) => dispatch(fetchReviews(theCName)),
 		updateAgree: (rid) => dispatch(postAgreeVotes(rid)),
 		postingAddReview: (title, userid, rating, role, comment, location, isano, username) => dispatch(postAddReview(title, userid, rating, role, comment, location, isano, username)),
+		// sendReviewLengthToCompany: (x) => dispatch(sendingReviewLength(x))
 	}
 }
 
