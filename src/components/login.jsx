@@ -141,7 +141,7 @@ class Login extends Component {
 						content="Sign-up"
 						labelPosition='right'
 						icon='checkmark'
-						onClick={_ = (event) => { this.setState({ open: false }); console.log("this is how we got here"); this.props.postingSignup(this.state.username, this.state.password, this.state.email); if (this.props.usersLoading === false && this.props.usersError === null) { this.setState({ successSignupModal: true }) }; this.setState({ username: '' }); this.setState({ password: '' }); this.setState({ email: '' }) }}
+						onClick={_ = (event) => { this.setState({ open: false }); this.props.postingSignup(this.state.username, this.state.password, this.state.email); if (this.props.usersLoading === false && this.props.usersError === null) { this.setState({ successSignupModal: true }) }; this.setState({ username: '' }); this.setState({ password: '' }); this.setState({ email: '' }) }}
 						positive
 					/>
 

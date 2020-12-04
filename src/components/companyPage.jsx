@@ -7,7 +7,7 @@ import { Button, Popup, Checkbox, Message, Form, Table, Container, Rating, Modal
 import App from '../App'
 import HeaderSubHeader from 'semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader';
 import { Feed } from 'semantic-ui-react'
-import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview, } from "../store/actions/companyActions";
+import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview, sendingReviewLength} from "../store/actions/companyActions";
 import { getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -86,9 +86,13 @@ class CompanyPage extends Component {
 	// }
 
 	handleAddedReviewSuccess = () => {
+		this.props.sendReviewAmountToCompany(titleOfCompany); 
 		this.setState({ reviewSuccessMessage: true })
 		//wait five seconds then refresh
+		//send updated amount of reviews to company
+	
 		setTimeout(() => window.location.reload(), 800);
+		
 
 	}
 
@@ -222,7 +226,7 @@ class CompanyPage extends Component {
 					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
 					{(this.state.warningMessage) ? <Message warning size='mini'>
 						<Message.Header>You must Login or go anonymous before you can add a review!</Message.Header>
-						<p>Visit our <a href='/login'>login</a> page, then try again.</p>
+						<p>Visit our <a href='/login'>login</a> page or go anonymous, then try again.</p>
 					</Message> : ''}
 					{(this.state.reviewSuccessMessage) ? <Message
 						success
@@ -267,7 +271,7 @@ class CompanyPage extends Component {
 									</Form.Input>
 
 									<Form.TextArea required label='Comments' placeholder='Tell us more about how your experience went...' onChange={_ = (event) => { this.setState({ addComment: event.target.value }) }} />
-									<Form.Input fluid label='Location' placeholder='Location' onChange={_ = (event) => { this.setState({ addLocation: event.target.value }) }} />
+									<Form.Input fluid label='Location' placeholder='San Francisco, CA' onChange={_ = (event) => { this.setState({ addLocation: event.target.value }) }} />
 									<br />
 
 								</Form>
@@ -372,7 +376,7 @@ const mapDispatchToProps = (dispatch) => {
 		fetchRevs: (theCName) => dispatch(fetchReviews(theCName)),
 		updateAgree: (rid) => dispatch(postAgreeVotes(rid)),
 		postingAddReview: (title, userid, rating, role, comment, location, isano, username) => dispatch(postAddReview(title, userid, rating, role, comment, location, isano, username)),
-		// sendReviewLengthToCompany: (x) => dispatch(sendingReviewLength(x))
+		sendReviewAmountToCompany: (c)=> dispatch(sendingReviewLength(c)),
 	}
 }
 

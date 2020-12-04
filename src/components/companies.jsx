@@ -58,16 +58,16 @@ class Companies extends Component {
 					open={this.state.open}
 					dimmer='inverted'
 				>
-					<Modal.Header className='add-company-modal'>Sumbit an Internship/company</Modal.Header>
+					<Modal.Header>Sumbit an Internship/company</Modal.Header>
 					<Modal.Content>
 						<Modal.Description>
 							<Form>
 								<span>We are adding more internships everyday! Please complete fields, and we will approve this addition momentarily.</span>
 								<Divider />
-								<Form.Field required>
+								{/* <Form.Field required>
 								<label style={{'float': 'left'}}>Email</label><Popup content='We only use email to notify you when the company is added' trigger={<Button style={{'margin-left': '1%'}}size="mini" compact={true} icon='info' />} />
 									<input placeholder='Email' onChange={_ = (event) => { this.setState({ email: event.target.value }); }} />
-								</Form.Field>
+								</Form.Field> */}
 								<Form.Field required>
 									<label>Company Name</label>
 									<input placeholder='Company Name' onChange={_ = (event) => { this.setState({ company: event.target.value }); }} />
@@ -84,11 +84,12 @@ class Companies extends Component {
 							Cancel
 					  </Button>
 						<Button
+							positive
 							content="Send it"
 							labelPosition='right'
 							icon='checkmark'
 							onClick={_ =(event) => {this.setState({ open: false }); this.handleCompanySubmit(event)}}
-							positive
+							
 						/>
 					</Modal.Actions>
 				</Modal>

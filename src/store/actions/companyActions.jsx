@@ -229,6 +229,49 @@ export function postAgreeVotes(ridd) {
 		// );
 	}
 }
+
+
+function postTheReviewLength(cTheOnlyTitular) {
+	  fetch('http://localhost:4000/companies', {
+	  method: 'PUT',
+	   body: JSON.stringify({
+		   theTitle: cTheOnlyTitular,
+	   }),
+	  headers: { 'Content-Type': 'application/json' }
+  })
+	  .then(function (response) {
+		   console.log("this is the response:", response)
+		  // return response.json();
+	  
+	  }).then(function (body) {
+		  console.log(body);
+	  });
+
+}
+
+export function fakePostReviewLength(cTheTitular) {
+  postTheReviewLength(cTheTitular);
+return new Promise(resolve => {
+	// Resolve after a timeout so we can see the loading indicator
+	setTimeout(
+	  () =>
+		resolve({
+		  
+		}),
+	  10
+	);
+  });
+}
+export function sendingReviewLength(cTheOne) {
+	 console.log("cTheOne", cTheOne);
+	 console.log("incrementing company reviewlength");
+	 fakePostReviewLength(cTheOne);
+	
+	return dispatch => {
+	 
+	}
+}
+
 function postReview(titlesss, useridsss, ratingsss, rolesss, commentsss, locationsss, isanosss, usernamesss) {
 	fetch('http://localhost:4000/reviews', {
 		method: 'POST',
@@ -282,12 +325,7 @@ export function postAddReview(titles, userids, ratings, roles, comments, locatio
 	}
 }
 
-// export function sendingReviewLength(numberR) {
-// 	return dispatch => {
-	
-// 		console.log("looky here", numberR)
-// 	}
-// }
+
   //--------------------------------------------------------------------------------------
   // Handle HTTP errors since fetch won't.
   function handleErrors(response) {

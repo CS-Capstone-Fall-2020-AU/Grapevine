@@ -87,7 +87,7 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  var childProcess = require("child_process").spawn('python', ["backend/api/reset_test.py"], { stdio: "inherit" })
+  var childProcess = require("child_process").spawn('python', ["backend/api/api_model.py"], { stdio: "inherit" })
    childProcess.on('data', function (data) {
      process.stdout.write("python script output", data);
    });
@@ -139,8 +139,14 @@ app.post('/users', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
   console.log("this?", typeof (req), "and", typeof (req.body));
   const body = (req.body);
-  var practice2 = 'INSERT INTO `users`(`userID`, `isAnonymous`, `firstName`, `lastName`, `username`, `password`, `email`) VALUES ("' + body.userID + '", "' + body.isAnonymous + '",  "' + body.firstName + '",  "' + body.lastName + '",  "' + body.username + '",  "' + body.password + '", "' + body.email + '")'
-  con.query(practice2, function (err, result) {
+  if (body.anonCode && body.anonCode==='goingdark'){
+    var practice2 = 'INSERT INTO `users`(`userID`, `isAnonymous`) VALUES ("' + body.userID + '", "' + body.isAnonymous + '")'
+
+  }
+  else{
+    var practice2 = 'INSERT INTO `users`(`userID`, `isAnonymous`, `firstName`, `lastName`, `username`, `password`, `email`) VALUES ("' + body.userID + '", "' + body.isAnonymous + '",  "' + body.firstName + '",  "' + body.lastName + '",  "' + body.username + '",  "' + body.password + '", "' + body.email + '")'
+  }
+    con.query(practice2, function (err, result) {
     if (err) throw err;
     console.log("Inserted " + result);
   });
@@ -172,6 +178,18 @@ app.put('/reviews', function (req, res) {
   })
   res.send('PUT Request');
 });
+
+app.put('/companies', function (req, res) {
+  const body = (req.body);
+  res.set('Access-Control-Allow-Origin', '*');
+  let putStatement2 = 'UPDATE `companies` SET `numOfRatings` = `numOfRatings`+1 WHERE `companyName` = ("' + body.theTitle + '")'
+  con.query(putStatement2, function (err, res) {
+    if (err) throw err;
+    console.log("updated review length");
+  })
+  res.send('PUT Request');
+});
+
 
 
 

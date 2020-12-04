@@ -10,6 +10,7 @@ import { NavLink, Link } from 'react-router-dom';
 import Logo from '../images/jv7000.png';
 import { connect } from 'react-redux';
 import { fetchProducts } from "../store/actions/companyActions";
+import { postAnonSignup, gettingAnonSignup } from '../store/actions/loginActions';
 import { getLogins } from "../store/actions/loginActions";
 import searchReducer from '../store/reducers/searchReducer';
 // import { PURGE, REHYDRATE } from 'redux-persist';
@@ -17,6 +18,7 @@ import searchReducer from '../store/reducers/searchReducer';
 import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
 import {persistor} from '../index.jsx'
+import Jump from 'react-reveal/Tada';
 //check signup for persistor problems
 
 
@@ -37,6 +39,12 @@ class Navigation extends Component {
 	}
 	handleRateAnon = () => {
 		this.setState({ anon: true });
+		//have to sign them up as anonymous, userid
+		this.props.postingAnonSignup();
+		//if we get the success message from this the we can call this.props.getAnonSignup
+		this.props.getAnonSignup();
+		console.log("do we get here");
+		//then log them in
 	}
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 	handleSearchChange = (e, data) => {
@@ -62,6 +70,13 @@ class Navigation extends Component {
 		persistor.purge();
 	
    }
+   onPurgeStoredState2(e) { 
+
+	alert("making our way here");
+	persistor.purge();
+	window.location.reload();
+
+}
 
 
 	render() {
@@ -115,13 +130,27 @@ class Navigation extends Component {
 
 
 					<Menu.Menu position='right'>
-						<Menu.Item>
-							<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
-						</Menu.Item>
+					{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && (this.props.usersLogins.isAnonymous === 1)?
 					
-						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ?
-							<Menu.Item href='/login' onClick={this.onPurgeStoredState}>
-								<Button primary><Icon name='user circle'></Icon>{this.props.usersLogins.username}</Button>
+						<Menu.Item>
+							<Jump>
+							
+							<Button icon labelPosition='right' secondary onClick={this.onPurgeStoredState2}><Icon name='user secret' />Anonymous  #{this.props.usersLogins.userID}</Button>
+						</Jump>
+						</Menu.Item>  : <Menu.Item>
+							<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
+						</Menu.Item>}
+
+
+						{/* <Button icon labelPosition='left'>
+      <Icon name='pause' />
+      Pause
+    </Button> */}
+						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && !((this.props.usersLogins.isAnonymous === 1)) ?
+							<Menu.Item href='/login' onClick={this.onPurgeStoredState}> 
+							{/* //onclick have a dropdown */}
+							{/* //gonna be blank for anon gonna have to change this */}
+								<Button icon labelPosition='right'><Icon name='user circle' />{this.props.usersLogins.username}</Button>
 							</Menu.Item> :
 							<Menu.Item href='/login'>
 								<Button primary>Sign Up/Login</Button>
@@ -155,6 +184,8 @@ const mapDispatchToProps = (dispatch) => {
 		cleanQuery: () => dispatch({ type: 'CLEAN_QUERY' }),
 		finalSearch: (isMatching) => dispatch({ type: 'FINISH_SEARCH', results: _.filter(source, isMatching) },),
 		updateSelection: (dataTitlesValue) => dispatch({ type: 'UPDATE_SELECTION', selection: dataTitlesValue }),
+		postingAnonSignup: () => dispatch(postAnonSignup()),
+		getAnonSignup: () => dispatch(gettingAnonSignup()),
 	
 	}
 }
