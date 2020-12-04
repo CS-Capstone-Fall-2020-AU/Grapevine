@@ -73,3 +73,10 @@ body, html {
   /* min-height: 100% !important; */
   
 }
+
+#main-search>.ui.search>.results {
+  position: relative;
+  max-height: 14em !important;
+  overflow-y:scroll;
+  /* z-index: -1; */
+}

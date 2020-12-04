@@ -138,7 +138,7 @@ app.post('/companies', (req, result) => {
 app.post('/users', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
   console.log("this?", typeof (req), "and", typeof (req.body));
-  const body = (req.body);
+  const body = (req.body); 
   if (body.anonCode && body.anonCode==='goingdark'){
     var practice2 = 'INSERT INTO `users`(`userID`, `isAnonymous`) VALUES ("' + body.userID + '", "' + body.isAnonymous + '")'
 

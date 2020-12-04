@@ -12,19 +12,20 @@ import { getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
-//aphabetize the comany list 
-//make the search work
-//things that dont work, 
-//contains how many reviews in companies list page
+
+//finish search
+//add dropdown for login and anon with recieve notifications, sign out
+//add those covid 19 updates
+//add colors
+//make code pretty
+//add to amazon ec2 instance
+
 //terms and conditions on sign up page
 //top descriptors
-
 //company login
-//company dashboard
-//search
 //everything on front page
-//rate anon
-//drews stuff
+
+
 let options = [
 	{ text: 'Software Engineer', value: 'Software Engineer' },
 	{ text: 'Solutions Engineer', value: 'Solutions Engineer' },
@@ -32,6 +33,7 @@ let options = [
 	{ text: 'Cybersecurity', value: 'Cybersecurity' },
 	{ text: 'Computer Networking', value: 'Computer Networking' },
 	{ text: 'Technology Consultant', value: 'Technology Constultant' },
+	{ text: 'UX/UI Design', value: 'Technology Constultant' },
 	{ text: 'Other', value: 'Other' },
 ]
 

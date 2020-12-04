@@ -121,7 +121,7 @@ class Companies extends Component {
 							</List.Item>
 						))}
 					</List>
-
+ 
 				</Container>
 
 

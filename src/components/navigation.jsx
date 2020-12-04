@@ -17,26 +17,24 @@ import searchReducer from '../store/reducers/searchReducer';
 // import { persistor } from '../index.jsx'
 import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
-import {persistor} from '../index.jsx'
+import { persistor } from '../index.jsx'
 import Jump from 'react-reveal/Tada';
 //check signup for persistor problems
 
-
+let source;
 var activeItem;
-
-const source = _.times(5, () => ({
-	title: faker.company.companyName(),
-	description: faker.company.catchPhrase(),
-	image: faker.internet.avatar(),
-	price: faker.finance.amount(0, 100, 2, '$'),
-}))
+let opts;
 
 class Navigation extends Component {
 	//shake and then turn the app dark
 	state = {
 		anon: false,
-
 	}
+
+	componentDidMount() {
+		opts = this.props.fetchCompanies();
+	}
+
 	handleRateAnon = () => {
 		this.setState({ anon: true });
 		//have to sign them up as anonymous, userid
@@ -46,121 +44,109 @@ class Navigation extends Component {
 		console.log("do we get here");
 		//then log them in
 	}
+
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
 	handleSearchChange = (e, data) => {
-		//   clearTimeout(timeoutRef.current)
-		this.props.fetchCompanies(data.value);
+		this.props.startSearch(data.value)
+		source = (this.props.products.map(pr => (
+			{
+				title: pr.companyName,
+				image: pr.imgLogoUrl,
+				description: pr.numOfRatings + ' ' + 'reviews',
+			}
+		)))
 
 		setTimeout(() => {
 			if (data.value.length === 0) {
 				this.props.cleanQuery();
-
-				return
+				return;
 			}
-
-			const re = new RegExp(_.escapeRegExp(data.value), 'i')
-			const isMatch = (result) => re.test(result.title)
-
+			let re = new RegExp(_.escapeRegExp(data.value), 'i');
+			let isMatch = (result) => re.test(result.title);
 			this.props.finalSearch(isMatch);
-		}, 300)
+		}, 100)
 	}
-	onPurgeStoredState(e) { 
 
-		alert("making our way here");
+	onPurgeStoredState(e) {
 		persistor.purge();
-	
-   }
-   onPurgeStoredState2(e) { 
+	}
 
-	alert("making our way here");
-	persistor.purge();
-	window.location.reload();
-
-}
+	onPurgeStoredState2(e) {
+		persistor.purge();
+		window.location.reload();
+	}
 
 
 	render() {
 		return (
 			<span>
 				<Sticky>
-				<Menu >
-					<Menu.Item
-						name='Grapevine'
-						active={activeItem === 'Grapevine logo'}
-						onClick={this.handleItemClick}
-						href='/'>
-						<img style={{'width':'4em'}} src={Logo} size='medium' alt="Grapevine logo" />
-
-					</Menu.Item>
-
-					<Menu.Item
-						name='Companies'
-						active={activeItem === 'Internship Companies'}
-						onClick={this.handleItemClick}
-						href='/companies'
-					/>
-					<Menu.Item
-						name='Ratings'
-						active={activeItem === 'ratings'}
-						onClick={this.handleItemClick}
-						href='/ratings'
-					/>
-
-					<Menu.Item
-						name='About'
-						active={activeItem === 'about'}
-						onClick={this.handleItemClick}
-						href='/about'
-					/>
-
-				
-					<Menu.Item >
-						<Search
-							loading={this.props.search.loading}
-							onResultSelect={(e, data) =>
-								this.props.updateSelection(data.result.title)
-
-							}
-							onSearchChange={this.handleSearchChange}
-							results={this.props.search.results}
-							value={this.props.search.value}
+					<Menu >
+						<Menu.Item
+							name='Grapevine'
+							active={activeItem === 'Grapevine logo'}
+							onClick={this.handleItemClick}
+							href='/'>
+							<img style={{ 'width': '4em' }} src={Logo} size='medium' alt="Grapevine logo" />
+						</Menu.Item>
+						<Menu.Item
+							name='Companies'
+							active={activeItem === 'Internship Companies'}
+							onClick={this.handleItemClick}
+							href='/companies'
 						/>
+						<Menu.Item
+							name='Ratings'
+							active={activeItem === 'ratings'}
+							onClick={this.handleItemClick}
+							href='/ratings'
+						/>
+						<Menu.Item
+							name='About'
+							active={activeItem === 'about'}
+							onClick={this.handleItemClick}
+							href='/about'
+						/>
+						<Menu.Item >
+							<Search
+								loading={this.props.search.loading}
+								onResultSelect={(e, data) => {
+									this.props.updateSelection(data.result.title);
+									let destination = data.result.title;
+									window.location.href = '/ratings/' + destination;
+									}
+								}
+								onSearchChange={this.handleSearchChange}
+								results={this.props.search.results}
+								value={this.props.search.value}
+							/>
 
-					</Menu.Item>
+						</Menu.Item>
 
+						<Menu.Menu position='right'>
+							{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && (this.props.usersLogins.isAnonymous === 1) ?
 
-					<Menu.Menu position='right'>
-					{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && (this.props.usersLogins.isAnonymous === 1)?
-					
-						<Menu.Item>
-							<Jump>
-							
-							<Button icon labelPosition='right' secondary onClick={this.onPurgeStoredState2}><Icon name='user secret' />Anonymous  #{this.props.usersLogins.userID}</Button>
-						</Jump>
-						</Menu.Item>  : <Menu.Item>
-							<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
-						</Menu.Item>}
+								<Menu.Item>
+									<Button icon labelPosition='right' secondary onClick={this.onPurgeStoredState2}><Icon name='user secret' />Anonymous  #{this.props.usersLogins.userID}</Button>
+								</Menu.Item> : 
+								<Menu.Item>
+									<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
+								</Menu.Item>}
 
+							{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && !((this.props.usersLogins.isAnonymous === 1)) ?
+								<Menu.Item href='/login' onClick={this.onPurgeStoredState}>
+									{/* //onclick have a dropdown */}
+									{/* //gonna be blank for anon gonna have to change this */}
+									<Button icon labelPosition='right'><Icon name='user circle' />{this.props.usersLogins.username}</Button>
+								</Menu.Item> :
+								<Menu.Item href='/login'>
+									<Button primary>Sign Up/Login</Button>
+								</Menu.Item>}
 
-						{/* <Button icon labelPosition='left'>
-      <Icon name='pause' />
-      Pause
-    </Button> */}
-						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && !((this.props.usersLogins.isAnonymous === 1)) ?
-							<Menu.Item href='/login' onClick={this.onPurgeStoredState}> 
-							{/* //onclick have a dropdown */}
-							{/* //gonna be blank for anon gonna have to change this */}
-								<Button icon labelPosition='right'><Icon name='user circle' />{this.props.usersLogins.username}</Button>
-							</Menu.Item> :
-							<Menu.Item href='/login'>
-								<Button primary>Sign Up/Login</Button>
-							</Menu.Item>}
-
-
-
-					</Menu.Menu>
-				</Menu></Sticky>
-				</span>
+						</Menu.Menu>
+					</Menu></Sticky>
+			</span>
 
 		);
 	}
@@ -179,14 +165,14 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchCompanies: (value) => dispatch(fetchProducts(value)),
+		fetchCompanies: () => dispatch(fetchProducts()),
 		startSearch: (dataValue) => dispatch({ type: 'START_SEARCH', query: dataValue }),
 		cleanQuery: () => dispatch({ type: 'CLEAN_QUERY' }),
 		finalSearch: (isMatching) => dispatch({ type: 'FINISH_SEARCH', results: _.filter(source, isMatching) },),
 		updateSelection: (dataTitlesValue) => dispatch({ type: 'UPDATE_SELECTION', selection: dataTitlesValue }),
 		postingAnonSignup: () => dispatch(postAnonSignup()),
 		getAnonSignup: () => dispatch(gettingAnonSignup()),
-	
+
 	}
 }
 

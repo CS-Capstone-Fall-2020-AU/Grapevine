@@ -10,13 +10,38 @@ import rev4 from '../images/dividerVine4.png';
 import rev5 from '../images/dividerVine4.png';
 import Fade from 'react-reveal/Fade';
 import Reveal from 'react-reveal/Shake';
+import { connect } from 'react-redux';
+import { fetchProducts } from "../store/actions/companyActions";
+
+let opts2;
+let source2;
 
 
+class Main extends Component {
 
+	componentDidMount() {
+		opts2 = this.props.fetchCompanies();
+	}
+	handleSearchChange2 = (e, data) => {
+		this.props.startSearch(data.value)
+		source2 = (this.props.products.map(pr => (
+			{
+				title: pr.companyName,
+				image: pr.imgLogoUrl,
+				description: pr.numOfRatings + ' ' + 'reviews',
+			}
+		)))
 
-export default class Main extends Component {
-
-
+		setTimeout(() => {
+			if (data.value.length === 0) {
+				this.props.cleanQuery();
+				return;
+			}
+			let re = new RegExp(_.escapeRegExp(data.value), 'i');
+			let isMatch = (result) => re.test(result.title);
+			this.props.finalSearch(isMatch);
+		}, 100)
+	}
 
 	render() {
 		return (
@@ -89,14 +114,26 @@ export default class Main extends Component {
 			
 
 
-					<Grid.Column >
+					<Grid.Column id='main-search'>
 
-						<Search fluid={true} size={"huge"} defaultValue='Search here' className='search-box' size='medium'></Search>
+						<Search fluid={true} placeholder='Search companies here' size='medium'
+						
+						loading={this.props.search.loading2}
+						onResultSelect={(e, data) => {
+							this.props.updateSelection(data.result.title);
+							let destination = data.result.title;
+							window.location.href = '/ratings/' + destination;
+							}
+						}
+						onSearchChange={this.handleSearchChange2}
+						
+						results={this.props.search.results2}
+						value={this.props.search.value2}
+						
+						/>
 					</Grid.Column>
 
-					{/* 			<Image src={rev5} size='small' /> */}
-
-
+				
 
 
 					<Grid.Column >
@@ -121,4 +158,23 @@ export default class Main extends Component {
 }
 
 
+const mapStateToProps = (state) => {
+	return {
+		search: state.search,
+		products: state.products.items,
+		loading: state.products.loading,
+		error: state.products.error,
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		fetchCompanies: () => dispatch(fetchProducts()),
+		startSearch: (dataValue) => dispatch({ type: 'START_SEARCH2', query: dataValue }),
+		cleanQuery: () => dispatch({ type: 'CLEAN_QUERY2' }),
+		finalSearch: (isMatching) => dispatch({ type: 'FINISH_SEARCH2', results: _.filter(source2, isMatching) },),
+		updateSelection: (dataTitlesValue) => dispatch({ type: 'UPDATE_SELECTION2', selection: dataTitlesValue }),
+	}
+}
 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
