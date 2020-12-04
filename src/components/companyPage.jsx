@@ -33,7 +33,7 @@ let options = [
 	{ text: 'Cybersecurity', value: 'Cybersecurity' },
 	{ text: 'Computer Networking', value: 'Computer Networking' },
 	{ text: 'Technology Consultant', value: 'Technology Constultant' },
-	{ text: 'UX/UI Design', value: 'Technology Constultant' },
+	{ text: 'UX/UI Design', value: 'UX/UI Design' },
 	{ text: 'Other', value: 'Other' },
 ]
 

@@ -7,7 +7,7 @@ import faker from 'faker'
 import { Button, Sticky, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../images/jv7000.png';
+import Logo from '../images/16000.png';
 import { connect } from 'react-redux';
 import { fetchProducts } from "../store/actions/companyActions";
 import { postAnonSignup, gettingAnonSignup } from '../store/actions/loginActions';

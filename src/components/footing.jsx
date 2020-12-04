@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Main from './main';
 import Navigation from './navigation';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
-import Logo from '../images/jv7000.png';
+import Logo from '../images/16000.png';
 import TopRatings from './companies';
 import About from './about';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -34,9 +34,10 @@ export default class Footing extends Component {
 				<Grid.Column>
 					<Container textAlign='center'><Header as='h4'>Follow us</Header>
 
-						<Icon link name='twitter' size='large' />
-						<Icon link name='facebook' size='large' />
-						<Icon link name='instagram' size='large' /></Container>
+						<a href='https://twitter.com/grapevineinter1'><Icon name='twitter' size='large' /></a>
+						<a href='https://www.facebook.com/Grapevine_internships-108858171077586'><Icon name='facebook' size='large' /></a>
+						<a href='https://www.instagram.com/grapevine.internships/'><Icon name='instagram' size='large' /></a>
+					</Container>
 
 				</Grid.Column>
 			</Grid>

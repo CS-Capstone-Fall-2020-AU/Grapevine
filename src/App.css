@@ -50,11 +50,9 @@ div.equal.width.row{
   margin: auto;
 }
 
-.first-div{
- 
-    background-position: center;     
-  
- 
+#first-div{
+ padding-bottom: 0px;
+        
    /* Do not repeat the image */
    /* background: rgb(199,145,153);
 background: radial-gradient(circle, rgba(199,145,153,1) 35%, rgba(181,198,145,1) 100%); */

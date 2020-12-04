@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Main from './main';
 import Navigation from './navigation';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
-import Logo from '../images/jv7000.png';
+import Logo from '../images/16000.png';
 
 import TopRatings from './companies';
 import About from './about';
@@ -19,8 +19,8 @@ export default class Homepage extends Component {
 		return (
 <span>
 			<Grid divided='vertically' centered inverted id="front-grid">
-				<Grid.Row columns={3} >
-					<Grid.Column className='first-div'>
+				<Grid.Row columns={3} id='first-div'>
+					<Grid.Column >
 						<Fade bottom={true}><Image id='logo' src={Logo} size='medium'/></Fade>
 					</Grid.Column>
 				</Grid.Row>

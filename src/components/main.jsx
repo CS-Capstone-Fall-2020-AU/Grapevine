@@ -15,13 +15,34 @@ import { fetchProducts } from "../store/actions/companyActions";
 
 let opts2;
 let source2;
-
+let highestReviewsTableProductsArray;
+let highLimit = 4;
 
 class Main extends Component {
 
 	componentDidMount() {
 		opts2 = this.props.fetchCompanies();
+		
+		//go 5 times
 	}
+
+	// componentDidUpdate(){
+	
+	// 	highestReviewsTableProductsArray = this.props.products;
+	
+	// 	//highestReviewsTableProductsArray = highestReviewsTableProductsArray.sort((a, b) => parseFloat(b.numOfRatings) - parseFloat(a.numOfRatings));
+	// 	if (finalHighReviewArray.length === 5){
+	// 		console.log("full");
+	// 	}
+	// 	else{
+	// 		for (let pointer = 0; pointer < highestReviewPageTableRowsLimit; pointer++){
+	// 				finalHighReviewArray.push(highestReviewsTableProductsArray[pointer]);
+	// 				//finalHighReviewArray.push("hi");
+	// 		}
+	// 	console.log("highest 5", finalHighReviewArray);
+	// 	}
+	
+	// }
 	handleSearchChange2 = (e, data) => {
 		this.props.startSearch(data.value)
 		source2 = (this.props.products.map(pr => (
@@ -48,63 +69,41 @@ class Main extends Component {
 
 
 			<Grid style={{'width': '90%', 'margin': 'auto'}}>
-
-				<Grid.Row columns='equal'>
+				{/* //do a fetch products where you order by numofreview
+				// this.props.fetchProducts('main') array.sort*/}
+				<Grid.Row columns='equal' style={{'paddingTop': '0px'}}>
 					<Grid.Column >
 						<Fade bottom cascade={true}>
 							<Table>
 								<Table.Header>
 									<Table.Row>
-										<Table.HeaderCell >Company</Table.HeaderCell>
+										<Table.HeaderCell >Most Reviewed Companies</Table.HeaderCell>
 										<Table.HeaderCell>Reviews</Table.HeaderCell>
 									</Table.Row>
 								</Table.Header>
 
 								<Table.Body>
-									<Table.Row>
-										<Table.Cell>
+									{highestReviewsTableProductsArray = this.props.products,
+									highestReviewsTableProductsArray = highestReviewsTableProductsArray.sort((a, b) => parseFloat(b.numOfRatings) - parseFloat(a.numOfRatings)),
+									highestReviewsTableProductsArray.slice(0, highLimit).map(item =>
+									
+								<Table.Row>
+									
+										<Table.Cell selectable>
+										<a href= {`/ratings/${item.companyName}`}>
 											<Header as='h4' image>
-												<Image src='https://i.pcmag.com/imagery/reviews/05UyOgWkeofWVPlLbDVk0m7-11.1569471426.fit_scale.size_1028x578.jpg' rounded size='mini' />
+												<Image src={item.imgLogoUrl} rounded size='mini' />
 												<Header.Content>
-													Salesforce
+													{item.companyName}
 												</Header.Content>
 											</Header>
+											</a>
 										</Table.Cell >
-										<Table.Cell>44</Table.Cell>
+										
+									<Table.Cell>{item.numOfRatings}</Table.Cell>
 									</Table.Row>
-									<Table.Row>
-										<Table.Cell>
-											<Header as='h4' image>
-												<Image src='https://pbs.twimg.com/profile_images/654642053356351488/hwcKbeVj_400x400.png' rounded size='mini' />
-												<Header.Content>
-													Freddie Mac
-												</Header.Content>
-											</Header>
-										</Table.Cell>
-										<Table.Cell >21</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>
-											<Header as='h4' image>
-												<Image src='https://media.glassdoor.com/sqll/5634/the-aerospace-corporation-squarelogo-1532918709192.png' rounded size='mini' />
-												<Header.Content>
-													Aerospace Corporation
-												</Header.Content>
-											</Header>
-										</Table.Cell >
-										<Table.Cell>12</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell >
-											<Header as='h4' image>
-												<Image src='https://www.renaissancecapital.com/logos/PALAN.RC_logo_fb.jpg' rounded size='mini' />
-												<Header.Content>
-													Palantir
-												</Header.Content>
-											</Header>
-										</Table.Cell>
-										<Table.Cell>11</Table.Cell>
-									</Table.Row>
+									
+									)}
 								</Table.Body>
 							</Table>
 						</Fade>
