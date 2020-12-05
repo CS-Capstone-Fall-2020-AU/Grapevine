@@ -44,7 +44,7 @@ class Login extends Component {
 				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '25px', 'padding': '2%' }}>
 					<Form>
 						<span>Log-in or sign-up to get notifications on posts and interactions!</span>
-						<span style={{ 'float': 'right' }}>Sign up as a company? <a href=''>Company Sign-up </a><Popup content='Sign up as a company to see custom dashboards with statistics and key elements of intern reviews.' trigger={<Button size="mini" compact={true} icon='info' />} /> </span>
+						{/* <span style={{ 'float': 'right' }}>Sign up as a company? <a href=''>Company Sign-up </a><Popup content='Sign up as a company to see custom dashboards with statistics and key elements of intern reviews.' trigger={<Button size="mini" compact={true} icon='info' />} /> </span> */}
 						<Header>Log-in</Header>
 						<Divider />
 						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ? <Message

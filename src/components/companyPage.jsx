@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
 import { animation } from 'react-reveal/globals';
 
-
+//fix zoom in on nav
 //add dropdown for login and anon with recieve notifications, sign out
 //add those covid 19 updates
 //add colors
@@ -22,10 +22,9 @@ import { animation } from 'react-reveal/globals';
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
 //terms and conditions on sign up page
-//top descriptors
-//company login
-//everything on front page
+//right side of front page
 //hash password
+
 let nGram = require('n-gram')
 
 let options = [
