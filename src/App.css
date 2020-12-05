@@ -72,6 +72,12 @@ body, html {
   
 }
 
+.results{
+  position: relative;
+  max-height: 25em !important;
+  overflow-y:scroll;
+}
+
 #main-search>.ui.search>.results {
   position: relative;
   max-height: 14em !important;

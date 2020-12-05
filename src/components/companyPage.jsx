@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
 import { animation } from 'react-reveal/globals';
 
-//finish search
+
 //add dropdown for login and anon with recieve notifications, sign out
 //add those covid 19 updates
 //add colors

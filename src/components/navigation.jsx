@@ -82,7 +82,7 @@ class Navigation extends Component {
 		return (
 			<span>
 				<Sticky>
-					<Menu style={{'minWidth': 'min-content','overflowX':'auto'}} >
+					<Menu style={{'minWidth': 'min-content'}} >
 						<Menu.Item
 							name='Grapevine'
 							active={activeItem === 'Grapevine logo'}
@@ -108,7 +108,7 @@ class Navigation extends Component {
 							onClick={this.handleItemClick}
 							href='/about'
 						/>
-						<Menu.Item >
+						<Menu.Item id='nav-search'>
 							<Search
 								loading={this.props.search.loading}
 								onResultSelect={(e, data) => {
