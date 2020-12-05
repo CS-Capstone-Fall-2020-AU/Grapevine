@@ -25,7 +25,7 @@ import Footing from './components/footing'
 function App() {
   return (
     
- <span>
+ <div style={{'height':'100%'}}>
     
       <Router>
    
@@ -39,13 +39,12 @@ function App() {
 
 
       </Router>
-      <br />
-      <br />
+   
       <br />
       <Divider hidden/>
     <Footing />
 
-      </span>
+      </div>
      
   );
 }

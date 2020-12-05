@@ -52,8 +52,6 @@ div.equal.width.row{
 
 #first-div{
  padding-bottom: 0px;
-        
-   /* Do not repeat the image */
    /* background: rgb(199,145,153);
 background: radial-gradient(circle, rgba(199,145,153,1) 35%, rgba(181,198,145,1) 100%); */
 
@@ -67,8 +65,10 @@ background: radial-gradient(circle, rgba(199,145,153,1) 35%, rgba(181,198,145,1)
 }
 
 body, html {
-   height: max-content !important;
+   height: 100% !important;
   /* min-height: 100% !important; */
+  width: 100%;
+  min-width: min-content;
   
 }
 
@@ -78,3 +78,16 @@ body, html {
   overflow-y:scroll;
   /* z-index: -1; */
 }
+
+#root{
+  height: 100%;
+} 
+
+#login-background{
+  background: rgb(196,217,156);
+background: linear-gradient(166deg, rgba(196,217,156,1) 0%, rgba(213,228,184,1) 51%, rgba(238,244,227,1) 100%);
+margin-bottom: -2.74% !important;
+padding-bottom: 4%;
+padding-top:3%;
+}
+

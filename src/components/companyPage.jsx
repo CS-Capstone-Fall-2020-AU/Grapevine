@@ -7,11 +7,12 @@ import { Button, Popup, Checkbox, Message, Form, Table, Container, Rating, Modal
 import App from '../App'
 import HeaderSubHeader from 'semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader';
 import { Feed } from 'semantic-ui-react'
-import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview, sendingReviewLength} from "../store/actions/companyActions";
+import { fetchProducts, postCompanies, fetchReviews, postAgreeVotes, postAddReview, sendingReviewLength } from "../store/actions/companyActions";
 import { getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
+import { animation } from 'react-reveal/globals';
 
 //finish search
 //add dropdown for login and anon with recieve notifications, sign out
@@ -19,12 +20,13 @@ import { company } from 'faker';
 //add colors
 //make code pretty
 //add to amazon ec2 instance
-
+//if they add a company it should send grapevine an email
 //terms and conditions on sign up page
 //top descriptors
 //company login
 //everything on front page
-
+//hash password
+let nGram = require('n-gram')
 
 let options = [
 	{ text: 'Software Engineer', value: 'Software Engineer' },
@@ -62,6 +64,13 @@ let reviews;
 let finalOverallGrade = '';
 let activeIndex;
 let iconDef;
+let resultsGrams = [];
+let tester = [];
+let topWords;
+let sortable = [];
+let dict = {};
+let grams;
+let strList;
 class CompanyPage extends Component {
 	state = {
 		agreeVoteFakeState: 0,
@@ -81,20 +90,58 @@ class CompanyPage extends Component {
 		this.props.fetchCompanies();
 		titleOfCompany = this.props.data.match.params.id;
 		this.props.fetchRevs(titleOfCompany);
-		
+
+
 	}
-	// getSnapshotBeforeUpdate(){
-	// 	console.log("properrr length", this.props.reviews.length);
-	// }
+
+	gramy = () => {
+		console.log("do we get here"); for (let anItem of this.props.reviews) {
+			if (anItem.comments != undefined) {
+				tester = tester.concat(anItem.comments);
+			}
+		}
+		strList = tester;
+		let doc = strList.join(" ");
+
+		doc = doc.replace(/[^a-zA-Z ]/g, "");
+		doc = doc.toLowerCase();
+		grams = nGram.trigram(doc.split(' '));
+		//Fills object with a count of common bigrams
+		for (let i = 0; i < grams.length; i++) {
+			if (grams[i] in dict) {
+				dict[grams[i]]++;
+			}
+			else {
+				dict[grams[i]] = 1;
+			}
+		}
+		for (let [key, value] of (Object.entries(dict))) {
+			sortable.push([key, value]);
+		}
+		sortable = sortable.sort((a, b) => (parseInt(b[1])) - (parseInt(a[1])));
+		for (let value in sortable) {
+			resultsGrams.push(sortable[value]);
+		}
+
+		//get 3 top results
+		topWords = resultsGrams.slice(0, 4);
+		topWords = topWords.map(top => top[0].replace(/,/g, ' '));
+		topWords = topWords.map(top => top[0].toUpperCase() + top.substring(1,));
+		topWords = topWords.join(', ');
+		console.log("type", typeof topWords)
+		return topWords;
+	}
+
+
 
 	handleAddedReviewSuccess = () => {
-		this.props.sendReviewAmountToCompany(titleOfCompany); 
+		this.props.sendReviewAmountToCompany(titleOfCompany);
 		this.setState({ reviewSuccessMessage: true })
 		//wait five seconds then refresh
 		//send updated amount of reviews to company
-	
+
 		setTimeout(() => window.location.reload(), 800);
-		
+
 
 	}
 
@@ -179,7 +226,7 @@ class CompanyPage extends Component {
 
 			}
 		}
-//this.props.reviews.length should be posted to company in reviews
+		//this.props.reviews.length should be posted to company in reviews
 		return (
 
 			//need to grab reviews by the company name
@@ -188,10 +235,8 @@ class CompanyPage extends Component {
 			// style={{ 'backgroundColor': '#c3becc' }}
 			<span>
 				{console.log("reviews, here", this.props.reviews)}
-				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
+				<Container textAlign='justified' style={{'minHeight':'-webkit-fill-available', 'height':'fit-content','backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
 					<Header><Image src={imglink} avatar />{titleOfCompany}</Header>
-					
-
 					<Table celled >
 						<Table.Header>
 							<Table.Row>
@@ -205,25 +250,17 @@ class CompanyPage extends Component {
 						<Table.Body>
 							<Table.Row>
 								<Table.Cell>
-									{/* this is now irrelevant, we need to calculate the overallgrade */}
 									<Header as='h2' textAlign='center'>{finalOverallGrade}</Header>
 								</Table.Cell>
-								{/* this is all the grades added up divided by ratingsnum */}
-								{/* for each grade, convert it into a value */}
-								{/* {this.props.sendReviewLengthToCompany(this.props.reviews.length)} */}
-								<Table.Cell textAlign='right'>{(avg ? avg : '')}% <br /><a href='#'>{this.props.reviews.length} interns</a></Table.Cell>
+								<Table.Cell textAlign='right'>{(isNaN(avg) ? '' : avg)}% <br /><a href='#'>{this.props.reviews.length} interns</a></Table.Cell>
 								<Table.Cell>
-									Learned a lot, informational presentations, strong networking (need to make function that does this)
+									{this.gramy()}
 								</Table.Cell>
 							</Table.Row>
 						</Table.Body>
 					</Table>
 
 					<Divider />
-
-					{/* -------------------------------------- */}
-
-					{/* ------------------------------------------------ */}
 
 					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
 					{(this.state.warningMessage) ? <Message warning size='mini'>
@@ -297,11 +334,11 @@ class CompanyPage extends Component {
 
 							<Feed.Event>
 								<Feed.Label>
-								{(review.isAnonymous === 0)? <Icon name='user'/> : <Icon name='user secret'/>}
+									{(review.isAnonymous === 0) ? <Icon name='user' /> : <Icon name='user secret' />}
 								</Feed.Label>
 								<Feed.Content>
 									<Feed.Summary>
-								<Feed.User>{(review.isAnonymous === 0)? review.username: 'Anonymous ' + review.userID}</Feed.User>
+										<Feed.User>{(review.isAnonymous === 0) ? review.username : 'Anonymous ' + review.userID}</Feed.User>
 
 										<Feed.Date>{review.dateOfReview.split("").slice(0, (review.dateOfReview.indexOf("T"))).join("")}</Feed.Date>
 									</Feed.Summary>
@@ -334,7 +371,7 @@ class CompanyPage extends Component {
 													{(review.location) ? review.location : 'N/A'}
 												</Table.Cell>
 												<Table.Cell>
-													<p>{review.comments}
+													<p>{(review.comments === null || review.comments === 'undefined') ? 'n/a' : review.comments}
 													</p>
 												</Table.Cell>
 											</Table.Row>
@@ -355,7 +392,7 @@ class CompanyPage extends Component {
 
 				</Container>
 
-				</span>
+			</span>
 		);
 	}
 }
@@ -378,7 +415,7 @@ const mapDispatchToProps = (dispatch) => {
 		fetchRevs: (theCName) => dispatch(fetchReviews(theCName)),
 		updateAgree: (rid) => dispatch(postAgreeVotes(rid)),
 		postingAddReview: (title, userid, rating, role, comment, location, isano, username) => dispatch(postAddReview(title, userid, rating, role, comment, location, isano, username)),
-		sendReviewAmountToCompany: (c)=> dispatch(sendingReviewLength(c)),
+		sendReviewAmountToCompany: (c) => dispatch(sendingReviewLength(c)),
 	}
 }
 

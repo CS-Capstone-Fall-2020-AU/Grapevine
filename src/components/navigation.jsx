@@ -82,7 +82,7 @@ class Navigation extends Component {
 		return (
 			<span>
 				<Sticky>
-					<Menu >
+					<Menu style={{'minWidth': 'min-content','overflowX':'auto'}} >
 						<Menu.Item
 							name='Grapevine'
 							active={activeItem === 'Grapevine logo'}

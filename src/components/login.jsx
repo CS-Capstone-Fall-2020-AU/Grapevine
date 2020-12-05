@@ -17,8 +17,6 @@ let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 class Login extends Component {
 	state = {
 		open: false,
-		// firstName: '',
-		// lastName: '',
 		username: '',
 		password: '',
 		email: '',
@@ -27,9 +25,7 @@ class Login extends Component {
 		gotLogins: false,
 	}
 
-	// handleLoggedIn = () =>{
-	// 	console.log("the line fromt he login page", this.props.usersLogins);
-	// }
+
 	takeMeHome = () =>{
 		setTimeout(function () {
 			window.location.href = '/'
@@ -42,11 +38,9 @@ class Login extends Component {
 
 	render() {
 		//for later, make this more efficient, so that we dont check logins on every rerender
-
-
 		return (
 			//we will have to get the login information from the database.. and check this.state.username against that
-			<Segment attached basic style={{ 'backgroundColor': '#b5c691' }}>
+			<Segment attached basic id='login-background'>
 				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '25px', 'padding': '2%' }}>
 					<Form>
 						<span>Log-in or sign-up to get notifications on posts and interactions!</span>
