@@ -25,7 +25,7 @@ function getProducts() {
 			  }
 		}
 		else{
-			console.log();
+			
 		}
 	}
 		
@@ -70,7 +70,7 @@ function getReviews(thatNameFinal) {
 			  }
 		}
 		else{
-			console.log();
+		
 		}
 	}
 		
@@ -123,7 +123,6 @@ function getReviews(thatNameFinal) {
 	  dispatch(fetchReviewsBegin());
 	  return fakeGetReviews(thatName)
 		.then(json => {
-			//console.log("anyone", json.revs);
 		  dispatch(fetchReviewsSuccess(json.revs));
 		  return json.products;
 		})
@@ -149,7 +148,7 @@ function postProducts(argCO, argLO, argEM) {
 			//this is the line that is giving me the error
 			return response.json()
 		}).then(function (body) {
-			console.log(body);
+			
 		});
 
 }
@@ -169,7 +168,6 @@ function postProducts(argCO, argLO, argEM) {
   }
 
   function postTheAgrees(r_id) {
-	  console.log("after we got here");
 		fetch('http://localhost:4000/reviews', {
 		method: 'PUT',
 		 body: JSON.stringify({
@@ -178,17 +176,14 @@ function postProducts(argCO, argLO, argEM) {
 		headers: { 'Content-Type': 'application/json' }
 	})
 		.then(function (response) {
-			 console.log("this is the response:", response)
-			// return response.json();
-		
+			
 		}).then(function (body) {
-			console.log(body);
+			
 		});
 
 }
 
   export function fakePostAgreeVotes(riddd) {
-	  console.log("and then we got here");
 	postTheAgrees(riddd);
   return new Promise(resolve => {
 	  // Resolve after a timeout so we can see the loading indicator
@@ -215,7 +210,6 @@ function postProducts(argCO, argLO, argEM) {
 	}
 }
 export function postAgreeVotes(ridd) {
-	console.log("incrementing agree thing");
 	fakePostAgreeVotes(ridd);
 	return dispatch => {
 	  //dispatch(PostAgreeVotesBegin());
@@ -240,11 +234,11 @@ function postTheReviewLength(cTheOnlyTitular) {
 	  headers: { 'Content-Type': 'application/json' }
   })
 	  .then(function (response) {
-		   console.log("this is the response:", response)
+		  
 		  // return response.json();
 	  
 	  }).then(function (body) {
-		  console.log(body);
+		 
 	  });
 
 }
@@ -263,8 +257,7 @@ return new Promise(resolve => {
   });
 }
 export function sendingReviewLength(cTheOne) {
-	 console.log("cTheOne", cTheOne);
-	 console.log("incrementing company reviewlength");
+
 	 fakePostReviewLength(cTheOne);
 	
 	return dispatch => {
@@ -292,7 +285,7 @@ function postReview(titlesss, useridsss, ratingsss, rolesss, commentsss, locatio
 			//this is the line that is giving me the error
 			return response.json()
 		}).then(function (body) {
-			console.log(body);
+			
 		});
 
 }

@@ -18,11 +18,9 @@ import { animation } from 'react-reveal/globals';
 //add dropdown for login and anon with recieve notifications, sign out
 //add those covid 19 updates
 //add colors
-//make code pretty
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
 //terms and conditions on sign up page
-//right side of front page
 //hash password
 //login and signup regexes
 
@@ -91,11 +89,10 @@ class CompanyPage extends Component {
 		titleOfCompany = this.props.data.match.params.id;
 		this.props.fetchRevs(titleOfCompany);
 
-
 	}
 
 	gramy = () => {
-		console.log("do we get here"); for (let anItem of this.props.reviews) {
+		for (let anItem of this.props.reviews) {
 			if (anItem.comments != undefined) {
 				tester = tester.concat(anItem.comments);
 			}
@@ -128,7 +125,6 @@ class CompanyPage extends Component {
 		topWords = topWords.map(top => top[0].replace(/,/g, ' '));
 		topWords = topWords.map(top => top[0].toUpperCase() + top.substring(1,));
 		topWords = topWords.join(', ');
-		console.log("type", typeof topWords)
 		return topWords;
 	}
 
@@ -139,19 +135,13 @@ class CompanyPage extends Component {
 		this.setState({ reviewSuccessMessage: true })
 		//wait five seconds then refresh
 		//send updated amount of reviews to company
-
 		setTimeout(() => window.location.reload(), 800);
-
-
 	}
 
 	handleAddReviewClick = (Event) => {
-		console.log("maade it");
 		this.setState({ reviewButtonClicked: true })
 		if ((!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error')) {
-			console.log("you are logged in and you can do it");
 			this.setState({ addReviewModal: true })
-
 			//review id: dont have to send anything
 			//userid: get it from this.props.userLogins....with user id get the anonym or the username
 			//internshipRating: String(input)
@@ -163,14 +153,12 @@ class CompanyPage extends Component {
 			//dateofreview: automatically input
 			//isAnonymous: grab that from 0 is false, this.props.usersLogin
 			//username: grab it if it is there from this.props.usersLogin
-
 			//once we submit the form there is gonna be `reviewID`, `userID`, `internshipRating`, `role`, `companyName`, `comments`, `agreeVotes`, `location`, `dateOfReview`
 			//we'd have to do a get to logins, cross reference userid with their username and anon setting and do it that way
 
 		}
 		else {
 			//they are not logged in
-			console.log("you are not logged in");
 			this.setState({ warningMessage: true })
 
 		}
@@ -212,7 +200,6 @@ class CompanyPage extends Component {
 			avg = (total / (this.props.reviews.length)).toFixed(2);;
 			//if its 80 or + or - 4 than its a b
 			for (let [key, value] of Object.entries(gradesDict)) {
-				//console.log(key, value);
 				if (Number(value) === avg) {
 					finalOverallGrade = key;
 				}
@@ -226,16 +213,10 @@ class CompanyPage extends Component {
 
 			}
 		}
-		//this.props.reviews.length should be posted to company in reviews
 		return (
-
-			//need to grab reviews by the company name
-			//fetch from two places: first from company, then from reviews, so pull data from company
-			//THIS IS NOT AS EFFICIENT AS IT CAN BE DO COME BACK HERE
 			// style={{ 'backgroundColor': '#c3becc' }}
 			<span>
-				{console.log("reviews, here", this.props.reviews)}
-				<Container textAlign='justified' style={{'minHeight':'-webkit-fill-available', 'height':'fit-content','backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
+				<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
 					<Header><Image src={imglink} avatar />{titleOfCompany}</Header>
 					<Table celled >
 						<Table.Header>
@@ -275,11 +256,11 @@ class CompanyPage extends Component {
 					<Modal
 						open={this.state.addReviewModal}
 						onClose={() => { this.setState({ addReviewModal: false }) }}
-						onOpen={() => console.log("open")}
+						onOpen={() => console.log()}
 					>
 						<Modal.Header>Add Internship Review</Modal.Header>
 						<Modal.Content image scrolling>
-							
+
 							{/* this.props.postAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogin.isAnonymous, this.props.userslogin.username) */}
 
 							<Modal.Description>
@@ -318,8 +299,8 @@ class CompanyPage extends Component {
 					<Feed>
 
 						{/* for each review in reviews map a feed section */}
-						{(this.props.reviewsError) ? <div>Error! {this.props.reviewsError.message}</div> : console.log()}
-						{(this.props.reviewsLoading) ? <Icon loading name='spinner' /> : console.log()}
+						{(this.props.reviewsError) ? <div>Error! {this.props.reviewsError.message}</div> : ''}
+						{(this.props.reviewsLoading) ? <Icon loading name='spinner' /> : ''}
 						{this.props.reviews.map(review => (
 
 							<Feed.Event>
@@ -367,7 +348,7 @@ class CompanyPage extends Component {
 											</Table.Row>
 										</Table.Body>
 									</Table>
-									{/* for thumbs up come back and use cookies to save state */}
+
 									<Button size='tiny' onClick={_ = () => { this.props.updateAgree(review.reviewID); this.setState({ buttonClick: true }); this.setState({ agreeVoteFakeState: review.reviewID }) }}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
 
 									{/* <Button size='tiny'><Icon style={{ 'margin': 'auto' }} name='thumbs down' /></Button> */}

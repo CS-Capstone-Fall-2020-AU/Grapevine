@@ -20,20 +20,7 @@ export function fetchProducts2(positionName) {
 	};
   }
 
-//   export function fetchReviews(thatName) {
-// 	return dispatch => {
-// 	  dispatch(fetchReviewsBegin());
-// 	  return fakeGetReviews(thatName)
-// 		.then(json => {
-// 			//console.log("anyone", json.revs);
-// 		  dispatch(fetchReviewsSuccess(json.revs));
-// 		  return json.products;
-// 		})
-// 		.catch(error =>
-// 		  dispatch(fetchProductsFailure(error))
-// 		);
-// 	};
-//   }
+
 let revs2 =[];
   function fakeGetProducts2(posName) {
 	getProducts2(posName)

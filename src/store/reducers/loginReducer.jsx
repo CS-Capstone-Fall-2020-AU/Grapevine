@@ -32,7 +32,7 @@ export default function productReducer(
 		case FETCH_ANON_LOGINS_SUCCESS:
 			// All done: set loading "false".
 			// Also, replace the items with the ones from the server
-			console.log("crt", action.payload);
+			
 			return {
 				...state,
 				loading: false,
@@ -64,7 +64,7 @@ export default function productReducer(
 		case FETCH_LOGINS_SUCCESS:
 			// All done: set loading "false".
 			// Also, replace the items with the ones from the server
-			console.log("crt", action.payload);
+
 			return {
 				...state,
 				loading: false,
@@ -114,17 +114,7 @@ export default function productReducer(
 				error: action.payload.error,
 				items: []
 			};
-		// return {
-		// 	...state,
-		// 	loading: false,
-		// 	items: action.payload
-		// 	// All done: set loading "false".
-		// 	// Also, replace the items with the ones from the server
-		// 	return {
-		// 	  ...state,
-		// 	  loading: false,
-		// 	  items: action.payload.products
-		// 	};
+	
 
 
 

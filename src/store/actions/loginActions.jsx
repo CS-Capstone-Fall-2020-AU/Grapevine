@@ -20,7 +20,7 @@ export function fakePostSignup(arg0, arg1, arg2) {
 			return response.json()
 		}).then(function (body) {
 			postResult = String(body.message);
-			console.log("this is the postresult", postResult);
+			
 		});
 //---------------------------send email to their email
 
@@ -83,7 +83,7 @@ export function fakePostAnonSignup() {
 			return response.json()
 		}).then(function (body) {
 			postResult = String(body.message);
-			console.log("this is the postresult", postResult);
+			
 		});
 //--------------------------
   return new Promise(resolve => {
@@ -112,8 +112,7 @@ function fakePostAnonSignupGetLogin() {
 		getLoginResults = Object.values(res.data);
 		let lastUserID = getLoginResults[getLoginResults.length-1].userID;
 	
-		console.log("this is the last user id plus 1", lastUserID);
-		console.log("this is what we get in time", getLoginResults);
+		
 		for (let loginItem of getLoginResults){
 			if (loginItem.isAnonymous === 1){
 				if (loginItem.userID === lastUserID){
@@ -123,12 +122,12 @@ function fakePostAnonSignupGetLogin() {
 			}
 		}
 		if (userFound === false){
-			console.log("user not found");
+			// console.log("user not found");
 			loginItemRow = "error";
 		}
 		else{
-			console.log("user found and logging in");
-			console.log("this is the line of wt we found", loginItemRow);
+			// console.log("user found and logging in");
+			// console.log("this is the line of wt we found", loginItemRow);
 			
 		}
   })

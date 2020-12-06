@@ -26,20 +26,15 @@ class Login extends Component {
 	}
 
 
-	takeMeHome = () =>{
+	takeMeHome = () => {
 		setTimeout(function () {
 			window.location.href = '/'
 		}, 1000);
-			
-				
-		
-	
 	}
 
 	render() {
-		//for later, make this more efficient, so that we dont check logins on every rerender
 		return (
-			//we will have to get the login information from the database.. and check this.state.username against that
+
 			<Segment attached basic id='login-background'>
 				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '25px', 'padding': '2%' }}>
 					<Form>
@@ -48,15 +43,15 @@ class Login extends Component {
 						<Header>Log-in</Header>
 						<Divider />
 						{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') ? <Message
-							header="You're logged in!" 
+							header="You're logged in!"
 							content='Redirecting you to grapevine'
-							onDismiss = {this.takeMeHome()}
-						/>: ''}
-						{((!(this.props.usersLoginsLoading)) && (this.props.usersLogins === 'error'))? 
-						<Message negative>
-						<Message.Header>User not found</Message.Header>
-						<p>Please check that the username and password are correct.</p>
-					  </Message>: ''}
+							onDismiss={this.takeMeHome()}
+						/> : ''}
+						{((!(this.props.usersLoginsLoading)) && (this.props.usersLogins === 'error')) ?
+							<Message negative>
+								<Message.Header>User not found</Message.Header>
+								<p>Please check that the username and password are correct.</p>
+							</Message> : ''}
 						<Form.Field required>
 							<label>Username</label>
 							<input placeholder='Username' onChange={_ = (event) => { this.setState({ username: event.target.value }); }} />
@@ -68,7 +63,7 @@ class Login extends Component {
 						<br />
 						<Button size='tiny' color='black' onClick={() => window.location.href = "/"}>
 							Cancel
-			  </Button>
+			  			</Button>
 						<Button
 							size='tiny'
 							content="Log-in"
@@ -85,13 +80,14 @@ class Login extends Component {
 
 						<Header>Sign-Up</Header>
 						{(this.state.successSignupModal) ?
-							<div> <Form success>
-								<Message
-									success
-									header='Sign-Up Completed'
-									content="You're signed up! Email confirmation sent! Please log-in above."
-								/>
-							</Form>
+							<div>
+								<Form success>
+									<Message
+										success
+										header='Sign-Up Completed'
+										content="You're signed up! Email confirmation sent! Please log-in above."
+									/>
+								</Form>
 								<br /></div> :
 							<div>
 								<Form.Field required>
@@ -114,22 +110,20 @@ class Login extends Component {
 									<Checkbox label='I agree to the' /> <a href=''>Terms and Conditions</a>
 								</Form.Field>
 							</div>}
-						{/* <Form.Field required>
-						<label style={{ 'float': 'left' }}>First name</label>
-						<input placeholder='First name' onChange={_ = (event) => { this.setState({ firstName: event.target.value }); }} />
-					</Form.Field>
-					<Form.Field required>
-						<label style={{ 'float': 'left' }}>Last name</label>
-						<input placeholder='Last name' onChange={_ = (event) => { this.setState({ firstName: event.target.value }); }} />
-					</Form.Field> */}
+								{/* <Form.Field required>
+								<label style={{ 'float': 'left' }}>First name</label>
+								<input placeholder='First name' onChange={_ = (event) => { this.setState({ firstName: event.target.value }); }} />
+								</Form.Field>
+								<Form.Field required>
+								<label style={{ 'float': 'left' }}>Last name</label>
+								<input placeholder='Last name' onChange={_ = (event) => { this.setState({ firstName: event.target.value }); }} />
+								</Form.Field> */}
 
 					</Form>
-
 					<br />
-
 					<Button size='tiny' color='black' onClick={() => window.location.href = "/"}>
 						Cancel
-			  </Button>
+			  		</Button>
 					<Button
 						size='tiny'
 						content="Sign-up"
@@ -138,8 +132,6 @@ class Login extends Component {
 						onClick={_ = (event) => { this.setState({ open: false }); this.props.postingSignup(this.state.username, this.state.password, this.state.email); if (this.props.usersLoading === false && this.props.usersError === null) { this.setState({ successSignupModal: true }) }; this.setState({ username: '' }); this.setState({ password: '' }); this.setState({ email: '' }) }}
 						positive
 					/>
-
-
 				</Container>
 			</Segment>
 
@@ -153,10 +145,9 @@ const mapStateToProps = state => ({
 	usersLogins: state.users.logins,
 	usersLoginsLoading: state.users.loginsLoading,
 });
-//might have to send up to a state and have agree votes as a state
+
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// fetchCompanies: () => dispatch(fetchProducts()),
 		postingSignup: (u, p, e) => dispatch(postSignup(u, p, e)),
 		gettingLogins: (lu, lp) => dispatch(getLogins(lu, lp))
 

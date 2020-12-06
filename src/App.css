@@ -1,21 +1,14 @@
 *:not(.icon) {
   font-family: 'Lora', serif !important;
-  
 }
-
 
 .dark-style{
   background-color: #aeb1b3;
-  
-
 }
 
 button.ui.primary.button{
   background-color: #4c96d7 !important;
 }
-
-
-
 
 #logo{
  margin: auto;
@@ -26,25 +19,19 @@ button.ui.primary.button{
   width: 80% !important;
   height: min-content !important;
   overflow-y: scroll !important;
-
 }
 
-
 .footer{
-  
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 2;
   text-align: center;
-  
 }
 
 .column div.ui.icon.input{
   width: 100%;
 }
-
-
 
 div.equal.width.row{
   margin: auto;
@@ -55,10 +42,7 @@ div.equal.width.row{
    /* background: rgb(199,145,153);
 background: radial-gradient(circle, rgba(199,145,153,1) 35%, rgba(181,198,145,1) 100%); */
 
-
- 
 }
-
 
 .ui.inverted[class*="vertically divided"].grid>.row:before {
   box-shadow: none !important;
@@ -91,10 +75,10 @@ body, html {
 
 #login-background{
   background: rgb(196,217,156);
-background: linear-gradient(166deg, rgba(196,217,156,1) 0%, rgba(213,228,184,1) 51%, rgba(238,244,227,1) 100%);
-margin-bottom: -2.74% !important;
-padding-bottom: 4%;
-padding-top:3%;
+  background: linear-gradient(166deg, rgba(196,217,156,1) 0%, rgba(213,228,184,1) 51%, rgba(238,244,227,1) 100%);
+  margin-bottom: -2.74% !important;
+  padding-bottom: 4%;
+  padding-top:3%;
 }
 
 div.accordion.ui.fluid div.active.title{

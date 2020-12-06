@@ -13,8 +13,6 @@ import { fetchProducts } from "../store/actions/companyActions";
 import { postAnonSignup, gettingAnonSignup } from '../store/actions/loginActions';
 import { getLogins } from "../store/actions/loginActions";
 import searchReducer from '../store/reducers/searchReducer';
-// import { PURGE, REHYDRATE } from 'redux-persist';
-// import { persistor } from '../index.jsx'
 import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
 import { persistor } from '../index.jsx'
@@ -41,7 +39,6 @@ class Navigation extends Component {
 		this.props.postingAnonSignup();
 		//if we get the success message from this the we can call this.props.getAnonSignup
 		this.props.getAnonSignup();
-		console.log("do we get here");
 		//then log them in
 	}
 

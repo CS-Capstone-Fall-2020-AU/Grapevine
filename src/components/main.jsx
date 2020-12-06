@@ -6,8 +6,7 @@ import _ from 'lodash';
 import faker from 'faker';
 import { Button, Container, Accordion, Table, Rating, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
-import rev4 from '../images/dividerVine4.png';
-import rev5 from '../images/dividerVine4.png';
+
 import Fade from 'react-reveal/Fade';
 import Reveal from 'react-reveal/Shake';
 import { connect } from 'react-redux';
@@ -17,15 +16,8 @@ let opts2;
 let source2;
 let highestReviewsTableProductsArray;
 let highLimit = 4;
-// { text: 'Software Engineer', value: 'Software Engineer' },
-// 	{ text: 'Solutions Engineer', value: 'Solutions Engineer' },
-// 	{ text: 'Data Scientist', value: 'Data Scientist' },
-// 	{ text: 'Cybersecurity', value: 'Cybersecurity' },
-// 	{ text: 'Computer Networking', value: 'Computer Networking' },
-// 	{ text: 'Technology Consultant', value: 'Technology Constultant' },
-// 	{ text: 'UX/UI Design', value: 'UX/UI Design' },
-const panels = [
 
+const panels = [
 	{
 		key: 'more-positions',
 		title: {
@@ -48,13 +40,10 @@ const panels = [
 
 class Main extends Component {
 	state = {
-
 	}
 
 	componentDidMount() {
 		opts2 = this.props.fetchCompanies();
-
-		//go 5 times
 	}
 
 
@@ -96,14 +85,11 @@ class Main extends Component {
 										<Table.HeaderCell>Reviews</Table.HeaderCell>
 									</Table.Row>
 								</Table.Header>
-
 								<Table.Body>
 									{highestReviewsTableProductsArray = this.props.products,
 										highestReviewsTableProductsArray = highestReviewsTableProductsArray.sort((a, b) => parseFloat(b.numOfRatings) - parseFloat(a.numOfRatings)),
 										highestReviewsTableProductsArray.slice(0, highLimit).map(item =>
-
 											<Table.Row>
-
 												<Table.Cell selectable>
 													<a href={`/ratings/${item.companyName}`}>
 														<Header as='h4' image>
@@ -114,10 +100,8 @@ class Main extends Component {
 														</Header>
 													</a>
 												</Table.Cell >
-
 												<Table.Cell>{item.numOfRatings}</Table.Cell>
 											</Table.Row>
-
 										)}
 								</Table.Body>
 							</Table>
@@ -125,12 +109,9 @@ class Main extends Component {
 					</Grid.Column>
 
 
-
-
-
 					<Grid.Column id='main-search'>
 
-						<Search fluid={true} placeholder='Search companies here' size='medium'
+						<Search fluid={true} placeholder='Search companies here' 
 
 							loading={this.props.search.loading2}
 							onResultSelect={(e, data) => {
@@ -147,33 +128,20 @@ class Main extends Component {
 						/>
 					</Grid.Column>
 
-
-
-
 					<Grid.Column >
 						<Fade bottom cascade={true}>
 							<List bulleted>
-								<List.Header><b>Recent Internship Positions</b></List.Header>
-								<br />
+								<List.Header style={{'paddingBottom': '2px'}}><b>Recent Internship Positions</b></List.Header>
 								<List.Item href='/positionReviews/Software Engineer'>Software Engineer</List.Item>
 								<List.Item href='/positionReviews/Solutions Engineer'>Solutions Engineer</List.Item>
 								<List.Item href='/positionReviews/Data Scientist'>Data Scientist</List.Item>
 								<List.Item href='/positionReviews/Cybersecurity'>Cybersecurity</List.Item>
 								<Accordion fluid panels={panels} />
-							
 							</List>
-
 						</Fade>
-
-
-
-
-
 					</Grid.Column>
 				</Grid.Row>
-
 			</Grid>
-
 		);
 	}
 }

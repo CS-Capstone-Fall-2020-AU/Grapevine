@@ -7,20 +7,18 @@ import faker from 'faker'
 import { Button, Popup, Checkbox, Feed, Message, Form, Table, Container, Rating, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
-import Logo from '../images/16000.png';
+
 import { connect } from 'react-redux';
 import { fetchProducts2 } from "../store/actions/mainPageActions";
 import { postAgreeVotes } from '../store/actions/companyActions'
 import { postAnonSignup, gettingAnonSignup } from '../store/actions/loginActions';
 import { getLogins } from "../store/actions/loginActions";
 import searchReducer from '../store/reducers/searchReducer';
-// import { PURGE, REHYDRATE } from 'redux-persist';
-// import { persistor } from '../index.jsx'
 import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
 import { persistor } from '../index.jsx'
 import Jump from 'react-reveal/Tada';
-//check signup for persistor problems
+
 
 let positionSelected;
 
@@ -31,27 +29,22 @@ class PositionReviews extends Component {
 	}
 
 	componentDidMount() {
-		//this.props.fetchProductsBasedOnPosition(this.props.match.params.id);
-		console.log('attempt1', this.props.match.params.item);
 		positionSelected = this.props.match.params.item;
 		this.props.fetchProductsBasedOnPosition(positionSelected);
-
 	}
-
 
 	render() {
 		let len = this.props.positionReviews.length;
 		return (
-			<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
-				<Header>Reviews for {positionSelected} Intern : ({len})</Header> 
+			<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'background': 'white', 'background': '-webkit-linear-gradient(to left, #f4e9e3, #ffffff)', 'background': 'linear-gradient(to left, #f4e9e3, #ffffff)' , 'borderRadius': '10px', 'padding': '2%', 'marginTop':'2%' }}>
+				<Header>Reviews for <u>{positionSelected}</u> Intern : ({len})</Header> 
 				<span>Note: To add a review, please go to the company page you want to review.</span>
 	
-				{console.log("attempt2", this.props.positionReviews)}
 				<Feed>
 
 					{/* for each review in reviews map a feed section */}
-					{(this.props.positionReviewsError) ? <div>Error! {this.props.positionReviewsError.message}</div> : console.log()}
-					{(this.props.positionReviewsLoading) ? <Icon loading name='spinner' /> : console.log()}
+					{(this.props.positionReviewsError) ? <div>Error! {this.props.positionReviewsError.message}</div> : ''}
+					{(this.props.positionReviewsLoading) ? <Icon loading name='spinner' /> : ''}
 					{this.props.positionReviews.map(review => (
 
 						<Feed.Event>
@@ -104,7 +97,6 @@ class PositionReviews extends Component {
 										</Table.Row>
 									</Table.Body>
 								</Table>
-								{/* for thumbs up come back and use cookies to save state */}
 								<Button size='tiny' onClick={_ = () => { this.props.updateAgree2(review.reviewID); this.setState({ buttonClick: true }); this.setState({ agreeVoteFakeState2: review.reviewID }) }}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
 
 								{/* <Button size='tiny'><Icon style={{ 'margin': 'auto' }} name='thumbs down' /></Button> */}
@@ -115,12 +107,7 @@ class PositionReviews extends Component {
 					))}
 
 				</Feed>
-
 			</Container>
-
-
-
-
 		);
 	}
 }

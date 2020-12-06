@@ -125,7 +125,7 @@ app.get('/reviews', (req, res) => {
 app.post('/companies', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
   const body = (req.body);
-  console.log("img", body.imageLogoUrl);
+ 
   var practice = 'INSERT INTO `companies`(`companyName`, `numOfRatings`, `overallRatingGrade`, `imgLogoUrl`) VALUES ("' + body.companyName + '", "' + body.numOfRatings + '", "' + body.overallRatingGrade + '", "' + body.imageLogoUrl + '")'
   con.query(practice, function (err, result) {
     if (err) throw err;
@@ -137,7 +137,7 @@ app.post('/companies', (req, result) => {
 
 app.post('/users', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
-  console.log("this?", typeof (req), "and", typeof (req.body));
+ 
   const body = (req.body); 
   if (body.anonCode && body.anonCode==='goingdark'){
     var practice2 = 'INSERT INTO `users`(`userID`, `isAnonymous`) VALUES ("' + body.userID + '", "' + body.isAnonymous + '")'
@@ -157,7 +157,7 @@ app.post('/users', (req, result) => {
 
 app.post('/reviews', (req, result) => {
   result.set('Access-Control-Allow-Origin', '*');
-  console.log("this?", typeof (req), "and", typeof (req.body));
+
   const body = (req.body);
   var practice3 = 'INSERT INTO `reviews`(`userID`, `internshipRating`, `role`, `companyName`, `comments`, `location`, `isAnonymous`, `username`) VALUES ("' + body.userID + '", "' + body.internshipRating + '", "' + body.role + '", "' + body.companyName + '", "' + body.comments + '", "' + body.location + '", "' + body.isAnonymous + '", "' + body.username + '")'
   con.query(practice3, function (err, result) {

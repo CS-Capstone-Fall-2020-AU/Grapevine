@@ -67,7 +67,7 @@ const reviewsReducer = (state = initialState, action) => {
 				error: null
 			};
 		case POST_AGREE_VOTES_SUCCESS:
-			console.log("incrementing agree votes");
+		
 			return {
 				...state,
 			};
