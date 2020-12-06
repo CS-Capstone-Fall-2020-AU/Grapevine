@@ -36,7 +36,7 @@ class PositionReviews extends Component {
 	render() {
 		let len = this.props.positionReviews.length;
 		return (
-			<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'background': 'white', 'background': '-webkit-linear-gradient(to left, #f4e9e3, #ffffff)', 'background': 'linear-gradient(to left, #f4e9e3, #ffffff)' , 'borderRadius': '10px', 'padding': '2%', 'marginTop':'2%' }}>
+			<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'background': 'white', 'background': '-webkit-linear-gradient(to left, #f4f1fa, #ffffff)', 'background': 'linear-gradient(to left, #f4f1fa, #ffffff)' , 'borderRadius': '10px', 'padding': '2%', 'marginTop':'2%' }}>
 				<Header>Reviews for <u>{positionSelected}</u> Intern : ({len})</Header> 
 				<span>Note: To add a review, please go to the company page you want to review.</span>
 	

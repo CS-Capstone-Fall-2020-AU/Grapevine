@@ -216,7 +216,7 @@ class CompanyPage extends Component {
 		return (
 			// style={{ 'backgroundColor': '#c3becc' }}
 			<span>
-				<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
+				<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white','borderRadius': '10px', 'padding': '2%' }}>
 					<Header><Image src={imglink} avatar />{titleOfCompany}</Header>
 					<Table celled >
 						<Table.Header>

@@ -74,8 +74,7 @@ body, html {
 } 
 
 #login-background{
-  background: rgb(196,217,156);
-  background: linear-gradient(166deg, rgba(196,217,156,1) 0%, rgba(213,228,184,1) 51%, rgba(238,244,227,1) 100%);
+  background-color: #dde9c7;
   margin-bottom: -2.74% !important;
   padding-bottom: 4%;
   padding-top:3%;
