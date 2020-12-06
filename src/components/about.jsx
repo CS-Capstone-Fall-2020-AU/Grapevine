@@ -68,8 +68,8 @@ export default class About extends Component {
 				<Grid>
 
 					<Grid.Column width={10} style={{ 'margin': 'auto', 'padding-left': '10%' }}>
-						<strong>Drew Messick </strong>is a software engineer, currently pursuing a BS in Computer Science at American University.
-						Upon graduating, he will work for a company and continue working on projects involving AI and data science.
+						<strong>Drew Meseck </strong>is a software engineer, currently pursuing a BS in Computer Science at American University.
+						Upon graduating, he will work for Freddie Mack and continue working on projects involving data science and analytics.
 					</Grid.Column>
 					<Grid.Column width={6}>
 						<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src='https://media-exp1.licdn.com/dms/image/C5603AQFLhCMCbQKPiA/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=vWDgy6pcq8PvKhNdDZfiiExUgqcvD0WR6lOb27gj8bs' circular />

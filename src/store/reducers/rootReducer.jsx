@@ -3,6 +3,7 @@ import reviewsReducer from './reviewsReducer';
 import companyReducer from './companyReducer';
 import addCompanyReducer from './addCompanyReducer';
 import loginReducer from './loginReducer';
+import mainPageReducer from './mainPageReducer';
 import {combineReducers} from 'redux';
 import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
 	products: companyReducer,
 	search: searchReducer,
 	reviews: reviewsReducer,
+	positions: mainPageReducer,
 	users: loginReducer,
 
 })

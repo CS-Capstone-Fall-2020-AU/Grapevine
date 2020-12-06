@@ -97,3 +97,7 @@ padding-bottom: 4%;
 padding-top:3%;
 }
 
+div.accordion.ui.fluid div.active.title{
+  padding-bottom: 0px;
+}
+

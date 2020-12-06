@@ -24,6 +24,7 @@ import { animation } from 'react-reveal/globals';
 //terms and conditions on sign up page
 //right side of front page
 //hash password
+//login and signup regexes
 
 let nGram = require('n-gram')
 
@@ -34,7 +35,7 @@ let options = [
 	{ text: 'Cybersecurity', value: 'Cybersecurity' },
 	{ text: 'Computer Networking', value: 'Computer Networking' },
 	{ text: 'Technology Consultant', value: 'Technology Constultant' },
-	{ text: 'UX/UI Design', value: 'UX/UI Design' },
+	{ text: 'UX UI Design', value: 'UX UI Design' },
 	{ text: 'Other', value: 'Other' },
 ]
 
@@ -278,17 +279,7 @@ class CompanyPage extends Component {
 					>
 						<Modal.Header>Add Internship Review</Modal.Header>
 						<Modal.Content image scrolling>
-							{/* //review id: dont have to send anything
-				//companyName: titleOfCompany]]
-			//userid: get it from this.props.userLogins....with user id get the anonym or the username
-			//internshipRating: String(input)
-			//role: not required, or string(input), dropdown
-			//comments: string(input)
-			//agreevotes: 0 default SKIPPEDDDDDDDDDDDDDDDDDDDDDD
-			//location: optional, string(input)
-			//dateofreview: automatically input SKIPPPEDDDDDDDDDDDDDDDDDDDDDD
-			//isAnonymous: grab that from 0 is false, this.props.usersLogin
-			//username: grab it if it is there from this.props.usersLogin */}
+							
 							{/* this.props.postAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogin.isAnonymous, this.props.userslogin.username) */}
 
 							<Modal.Description>

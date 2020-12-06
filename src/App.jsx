@@ -17,6 +17,7 @@ import Companies from './components/companies'
 import CompanyPage from './components/companyPage';
 import Login from './components/login';
 import Footing from './components/footing'
+import PositionReviews from './components/positionReviews'
 
 
 
@@ -35,6 +36,8 @@ function App() {
           <Route path='/'exact component={Homepage} />
           <Route path='/ratings/:id'  render = {(id) => <CompanyPage data={id} />} />
           <Route path='/login' exact component={Login} />
+          <Route path='/positionReviews/:item' exact component={PositionReviews} />
+   
         </Switch>
 
 
