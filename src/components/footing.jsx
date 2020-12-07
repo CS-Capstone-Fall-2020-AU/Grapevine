@@ -16,11 +16,18 @@ export default class Footing extends Component {
 	render() {
 		return (
 
-			<Grid columns={3} style={{ 'backgroundColor': 'rgba(161, 151, 170, 0.288)' }}>
+			<Grid columns={4} style={{ 'backgroundColor': 'rgba(161, 151, 170, 0.288)' }}>
 				<Grid.Column>
 					<Container textAlign='center'>
 						<Image src={Logo} size='tiny' style={{ 'margin': 'auto' }} />
 					</Container>
+				</Grid.Column>
+				<Grid.Column>
+				<Container textAlign='center'><Header as='h4'>Helpful Links</Header>
+			
+				<a href='https://github.com/Pitt-CSC/Summer2021-Internships'>Summer '21 Internship <br /> Status due to Covid</a>
+				
+				</Container>
 				</Grid.Column>
 				<Grid.Column>
 					<Container textAlign='center'><Header as='h4'>Contact</Header>

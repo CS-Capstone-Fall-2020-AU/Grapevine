@@ -14,15 +14,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
 import { animation } from 'react-reveal/globals';
 
-//fix zoom in on nav
+//fix zoom in on nav///
 //add dropdown for login and anon with recieve notifications, sign out
-//add those covid 19 updates
-//add colors
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
-//terms and conditions on sign up page
-//hash password
-//login and signup regexes
+//add new things to database through website
 
 let nGram = require('n-gram')
 
@@ -80,6 +76,8 @@ class CompanyPage extends Component {
 		addComment: '',
 		addLocation: '',
 		reviewSuccessMessage: false,
+		warningVisible: true,
+		overLimit: false,
 
 
 	}
@@ -141,6 +139,7 @@ class CompanyPage extends Component {
 	handleAddReviewClick = (Event) => {
 		this.setState({ reviewButtonClicked: true })
 		if ((!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error')) {
+			this.setState({ warningMessage: false })
 			this.setState({ addReviewModal: true })
 			//review id: dont have to send anything
 			//userid: get it from this.props.userLogins....with user id get the anonym or the username
@@ -167,7 +166,9 @@ class CompanyPage extends Component {
 		//if they are logged or if they are anonymous, then give them a form to fill out
 	}
 
-
+	handleDismiss = () => {
+		this.setState({ warningVisible: false })
+	}
 
 	render() {
 
@@ -216,7 +217,7 @@ class CompanyPage extends Component {
 		return (
 			// style={{ 'backgroundColor': '#c3becc' }}
 			<span>
-				<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white','borderRadius': '10px', 'padding': '2%' }}>
+				<Container textAlign='justified' style={{ 'minHeight': '-webkit-fill-available', 'height': 'fit-content', 'backgroundColor': 'white', 'borderRadius': '10px', 'padding': '2%' }}>
 					<Header><Image src={imglink} avatar />{titleOfCompany}</Header>
 					<Table celled >
 						<Table.Header>
@@ -244,7 +245,7 @@ class CompanyPage extends Component {
 					<Divider />
 
 					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
-					{(this.state.warningMessage) ? <Message warning size='mini'>
+					{(this.state.warningMessage) ? <Message warning size='mini' onDismiss={_=()=>{window.location.reload()}}>
 						<Message.Header>You must login or go anonymous before you can add a review!</Message.Header>
 						<p>Visit our <a href='/login'>login</a> page or go anonymous, then try again.</p>
 					</Message> : ''}
@@ -266,7 +267,7 @@ class CompanyPage extends Component {
 							<Modal.Description>
 								<Form>
 									<Form.Input required fluid label='Company' placeholder={titleOfCompany} value={titleOfCompany} />
-									<Form.Input required fluid label='Internship Rating' placeholder='Rating: A+,C-,F, etc.' onChange={_ = (event) => { this.setState({ addRating: event.target.value }) }} />
+									<Form.Input required fluid label='Internship Rating' placeholder='Rating: A+,C-,F, etc.' onChange={_ = (event) => { this.setState({ addRating: event.target.value.toUpperCase()}) }} />
 									<Form.Input
 										label="Role:"
 									>
@@ -279,8 +280,9 @@ class CompanyPage extends Component {
 											onChange={_ = (event) => { this.setState({ addRole: event.target.textContent }); }}
 										/>
 									</Form.Input>
-
-									<Form.TextArea required label='Comments' placeholder='Tell us more about how your experience went...' onChange={_ = (event) => { this.setState({ addComment: event.target.value }) }} />
+									
+									<Form.TextArea  maxLength="255" required label='Comments' placeholder='Tell us more about how your experience went...' onChange={_ = (event) => {this.setState({ addComment: event.target.value }); console.log(this.state.addComment.length); } } />
+								
 									<Form.Input fluid label='Location' placeholder='San Francisco, CA' onChange={_ = (event) => { this.setState({ addLocation: event.target.value }) }} />
 									<br />
 
@@ -289,7 +291,7 @@ class CompanyPage extends Component {
 						</Modal.Content>
 						<Modal.Actions>
 							<Button onClick={() => { this.setState({ addReviewModal: false }) }}>Cancel</Button>
-							<Button positive onClick={_ = () => { this.setState({ addReviewModal: false }); this.props.postingAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogins.isAnonymous, this.props.usersLogins.username); this.handleAddedReviewSuccess() }} primary>
+							<Button positive onClick={_ = () => {this.setState({ addReviewModal: false }); this.props.postingAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogins.isAnonymous, this.props.usersLogins.username); this.handleAddedReviewSuccess() }} primary>
 								Submit
 							</Button>
 

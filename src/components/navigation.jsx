@@ -4,7 +4,7 @@ import { Component, useRef } from 'react';
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import faker from 'faker'
-import { Button, Sticky, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
+import { Button, Sticky, Popup, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn } from 'semantic-ui-react';
 import App from '../App'
 import { NavLink, Link } from 'react-router-dom';
 import Logo from '../images/16000.png';
@@ -17,6 +17,7 @@ import { PURGE } from 'redux-persist';
 import persistConfig from '../store/reducers/rootReducer'
 import { persistor } from '../index.jsx'
 import Jump from 'react-reveal/Tada';
+
 //check signup for persistor problems
 
 let source;
@@ -40,6 +41,7 @@ class Navigation extends Component {
 		//if we get the success message from this the we can call this.props.getAnonSignup
 		this.props.getAnonSignup();
 		//then log them in
+	
 	}
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -121,18 +123,22 @@ class Navigation extends Component {
 							{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && (this.props.usersLogins.isAnonymous === 1) ?
 
 								<Menu.Item>
-									<Button icon labelPosition='right' secondary onClick={this.onPurgeStoredState2}><Icon name='user secret' />Anonymous  #{this.props.usersLogins.userID}</Button>
+									<Popup size='mini' content='Click here to sign out' trigger={<Button icon labelPosition='right' secondary onClick={this.onPurgeStoredState2}><Icon name='user secret' />Anonymous  #{this.props.usersLogins.userID}</Button>} />
 								</Menu.Item> : 
 								<Menu.Item>
 									<Button secondary onClick={this.handleRateAnon}>Rate Anonymously</Button>
 								</Menu.Item>}
 
 							{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && !((this.props.usersLogins.isAnonymous === 1)) ?
-								<Menu.Item href='/login' onClick={this.onPurgeStoredState}>
+								<Menu.Item href='/login' onClick={this.onPurgeStoredState} >
+									{/* href='/login' onClick={this.onPurgeStoredState} */}
 									{/* //onclick have a dropdown */}
 									{/* //gonna be blank for anon gonna have to change this */}
-									<Button icon labelPosition='right'><Icon name='user circle' />{this.props.usersLogins.username}</Button>
+									
+									<Popup size='mini' content='Click to sign out.' trigger={<Button icon labelPosition='right'><Icon name='user circle' />{this.props.usersLogins.username}</Button>} />
 								</Menu.Item> :
+
+								
 								<Menu.Item href='/login'>
 									<Button primary>Sign Up/Login</Button>
 								</Menu.Item>}

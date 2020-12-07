@@ -11,9 +11,10 @@ import Reveal from 'react-reveal/Shake';
 import { postSignup, getLogins } from "../store/actions/loginActions";
 import { connect } from "react-redux";
 import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+var sha1 = require('js-sha1');
 //todo: email regex on signup
 let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
+let checkedState;
 class Login extends Component {
 	state = {
 		open: false,
@@ -23,6 +24,8 @@ class Login extends Component {
 		successSignupModal: false,
 		loadingIcon: false,
 		gotLogins: false,
+		givethemerror: false,
+
 	}
 
 
@@ -31,12 +34,15 @@ class Login extends Component {
 			window.location.href = '/'
 		}, 1000);
 	}
+	handleSuccessOfSigning = ()=>{
+		this.setState({ open: false }); this.props.postingSignup(this.state.username, sha1(this.state.password), this.state.email); if (this.props.usersLoading === false && this.props.usersError === null) { this.setState({ successSignupModal: true }) }; this.setState({ username: '' }); this.setState({ password: '' }); this.setState({ email: '' }) 
+	}
 
 	render() {
 		return (
 
 			<Segment attached basic id='login-background'>
-				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '25px', 'padding': '2%' }}>
+				<Container textAlign='justified' style={{ 'backgroundColor': 'white', 'borderRadius': '25px', 'padding': '4%' }}>
 					<Form>
 						<span>Log-in or sign-up to get notifications on posts and interactions!</span>
 						{/* <span style={{ 'float': 'right' }}>Sign up as a company? <a href=''>Company Sign-up </a><Popup content='Sign up as a company to see custom dashboards with statistics and key elements of intern reviews.' trigger={<Button size="mini" compact={true} icon='info' />} /> </span> */}
@@ -58,7 +64,7 @@ class Login extends Component {
 						</Form.Field>
 						<Form.Field required>
 							<label>Password</label>
-							<input placeholder='password' password onChange={_ = (event) => { this.setState({ password: event.target.value }); }} />
+							<input type='password' placeholder='password' password onChange={_ = (event) => { this.setState({ password: event.target.value }); }} />
 						</Form.Field>
 						<br />
 						<Button size='tiny' color='black' onClick={() => window.location.href = "/"}>
@@ -71,7 +77,7 @@ class Login extends Component {
 							icon='checkmark'
 							//make the call to redux dispatch and get go through database values and find username and password and return the usrename in
 							//upper right corner can use redux if thing exosts thgen replace nav element
-							onClick={_ = (event) => { this.props.gettingLogins(this.state.username, this.state.password); this.setState({ open: false }); }}
+							onClick={_ = (event) => { this.props.gettingLogins(this.state.username, sha1(this.state.password)); this.setState({ open: false }); }}
 							positive
 						/>
 
@@ -94,23 +100,32 @@ class Login extends Component {
 									<label>Username</label>
 									<input placeholder='Username' onChange={_ = (event) => { this.setState({ username: event.target.value }); }} />
 								</Form.Field>
-								<Form.Field required password>
+								<Form.Field required>
 									<label>Password</label>
-									<input placeholder='password' password onChange={_ = (event) => { this.setState({ password: event.target.value }); }} />
+									<input type='password' placeholder='password' password onChange={_ = (event) => { this.setState({ password: event.target.value }); }} />
 								</Form.Field>
 
 
-								<Form.Field required >
+								<Form.Field required>
 									<label>Email</label>
 									<input placeholder='Email' onChange={_ = (event) => { this.setState({ email: event.target.value }); }} />
 								</Form.Field>
+								{/* should be an option to get email notifications on interactions on posts */}
+								{/* <Form.Field>
+									<Checkbox onChange={_ = (e, data) => {
+										checkedState = data.checked;
+										
+									}} label='I want to recieve notifications ' />  <Popup content='Get post interaction notifications. Stop recieving notifications by replying to a grapevine email.' trigger={<Button size='tiny' icon='info' />} />
 
+								</Form.Field> */}
 
 								<Form.Field>
-									<Checkbox label='I agree to the' /> <a href=''>Terms and Conditions</a>
+									<Checkbox onChange={_ = (e, data) => {
+										checkedState = data.checked;
+									}} label='I agree to the' /> <a href='https://drive.google.com/file/d/1HqIpf1xQESMcloMaMHmjh78f60PsdZA3/view?usp=sharing'>Terms and Conditions</a>
 								</Form.Field>
 							</div>}
-								{/* <Form.Field required>
+						{/* <Form.Field required>
 								<label style={{ 'float': 'left' }}>First name</label>
 								<input placeholder='First name' onChange={_ = (event) => { this.setState({ firstName: event.target.value }); }} />
 								</Form.Field>
@@ -129,9 +144,20 @@ class Login extends Component {
 						content="Sign-up"
 						labelPosition='right'
 						icon='checkmark'
-						onClick={_ = (event) => { this.setState({ open: false }); this.props.postingSignup(this.state.username, this.state.password, this.state.email); if (this.props.usersLoading === false && this.props.usersError === null) { this.setState({ successSignupModal: true }) }; this.setState({ username: '' }); this.setState({ password: '' }); this.setState({ email: '' }) }}
+						onClick={_ = (event) => {
+						if (this.state.email && this.state.username && this.state.password && checkedState===true){
+							this.setState({givethemerror: false});
+							this.handleSuccessOfSigning();
+							
+						} 
+						else{
+							this.setState({givethemerror:true});
+						}
+						}
+						}
 						positive
 					/>
+					{this.state.givethemerror ? <Message error><span>Please make sure you've entered the fields correctly and accepted the terms & conditions</span></Message> : ''}
 				</Container>
 			</Segment>
 
