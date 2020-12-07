@@ -16,6 +16,7 @@ import { animation } from 'react-reveal/globals';
 
 //fix zoom in on nav///
 //add dropdown for login and anon with recieve notifications, sign out
+
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
 //add new things to database through website
@@ -67,7 +68,7 @@ let grams;
 let strList;
 class CompanyPage extends Component {
 	state = {
-		agreeVoteFakeState: 0,
+		agreeVoteFakeState: -1,
 		buttonClick: false,
 		addReviewModal: false,
 		warningMessage: false,
@@ -77,9 +78,6 @@ class CompanyPage extends Component {
 		addLocation: '',
 		reviewSuccessMessage: false,
 		warningVisible: true,
-		overLimit: false,
-
-
 	}
 
 	componentWillMount() {
@@ -351,7 +349,7 @@ class CompanyPage extends Component {
 										</Table.Body>
 									</Table>
 
-									<Button size='tiny' onClick={_ = () => { this.props.updateAgree(review.reviewID); this.setState({ buttonClick: true }); this.setState({ agreeVoteFakeState: review.reviewID }) }}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
+									<Button size='tiny' onClick={_ = () => {this.props.updateAgree(review.reviewID); this.setState({agreeVoteFakeState: review.reviewID }); }}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
 
 									{/* <Button size='tiny'><Icon style={{ 'margin': 'auto' }} name='thumbs down' /></Button> */}
 								</Feed.Content>
