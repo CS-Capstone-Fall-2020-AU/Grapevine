@@ -60,6 +60,7 @@ body, html {
   position: relative;
   max-height: 25em !important;
   overflow-y:scroll;
+  
 }
 
 #main-search>.ui.search>.results {
@@ -75,12 +76,13 @@ body, html {
 
 #login-background{
   background-color: #dde9c7;
-  margin-bottom: -2.74% !important;
-  padding-bottom: 4%;
-  padding-top:3%;
+  padding-top: 4%;
+  padding-bottom: 2%;
+  margin-bottom: -3%;
 }
 
 div.accordion.ui.fluid div.active.title{
   padding-bottom: 0px;
 }
+
 

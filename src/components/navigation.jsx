@@ -77,9 +77,10 @@ class Navigation extends Component {
 
 	render() {
 		return (
-			<span>
-				<Sticky>
-					<Menu style={{'minWidth': 'min-content'}} >
+		
+		
+				<Sticky offset={.01} onBottom='ui fixed top sticky'>					
+					<Menu fluid>
 						<Menu.Item
 							name='Grapevine'
 							active={activeItem === 'Grapevine logo'}
@@ -116,7 +117,7 @@ class Navigation extends Component {
 
 						</Menu.Item>
 
-						<Menu.Menu position='right'>
+						<Menu.Menu position='right' style={{'minWidth': 'max-content'}}>
 							{(!(this.props.usersLoginsLoading)) && (this.props.usersLogins !== 'error') && (this.props.usersLogins.isAnonymous === 1) ?
 
 								<Menu.Item>
@@ -137,8 +138,10 @@ class Navigation extends Component {
 								</Menu.Item>}
 
 						</Menu.Menu>
-					</Menu></Sticky>
-			</span>
+					</Menu>
+					
+			</Sticky>
+		
 
 		);
 	}

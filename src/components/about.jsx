@@ -52,7 +52,7 @@ export default class About extends Component {
 					</Grid>
 					<Divider />
 					<Grid>
-						<Grid.Column width={10} style={{ 'margin': 'auto', 'padding-left': '10%' }}>
+						<Grid.Column width={10} style={{ 'margin': 'auto', 'paddingLeft': '10%' }}>
 							<strong>Drew Meseck </strong>is currently pursuing a BS in Computer Science and Economics at American University.
 						Upon graduating, he will work for Freddie Mac and continue working on projects involving data science and analytics.
 					</Grid.Column>

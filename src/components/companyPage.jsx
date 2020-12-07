@@ -245,7 +245,7 @@ class CompanyPage extends Component {
 
 					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
 					{(this.state.warningMessage) ? <Message warning size='mini'>
-						<Message.Header>You must Login or go anonymous before you can add a review!</Message.Header>
+						<Message.Header>You must login or go anonymous before you can add a review!</Message.Header>
 						<p>Visit our <a href='/login'>login</a> page or go anonymous, then try again.</p>
 					</Message> : ''}
 					{(this.state.reviewSuccessMessage) ? <Message
