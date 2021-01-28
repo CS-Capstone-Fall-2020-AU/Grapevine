@@ -45,7 +45,8 @@ function getReviews(thatNameFinal) {
 		
 		
 		for (let ir = 0; ir < reviewResults.length; ir++){
-			if (String(reviewResults[ir].companyName).includes(thatNameFinal)){
+			if (String(reviewResults[ir].companyName).includes(thatNameFinal) || reviewResults[ir].companyName === thatNameFinal){
+			
 				theExactReview.push(reviewResults[ir]);
 			}
 		}

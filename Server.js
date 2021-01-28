@@ -87,7 +87,7 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/reviews', (req, res) => {
-  var childProcess = require("child_process").spawn('python', ["backend/api/api_model.py"], { stdio: "inherit" })
+/*   var childProcess = require("child_process").spawn('python', ["backend/api/reset_test.py"], { stdio: "inherit" })
    childProcess.on('data', function (data) {
      process.stdout.write("python script output", data);
    });
@@ -99,7 +99,7 @@ app.get('/reviews', (req, res) => {
      else {
        process.stdout.write('"python script successfully exist with code: ' + code + '\n');
      }
-   });
+   }); */
    //---------------------------------------------------------------------------------------
   con.query('SELECT * FROM `reviews` where `flag`!=1', (err, results) => {
     if (err) {

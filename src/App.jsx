@@ -20,7 +20,7 @@ import PositionReviews from './components/positionReviews'
 
 function App() {
   return (
-    <div style={{'minHeight':'max-content', 'height': '100%' }}>
+    <div style={{'minHeight':'max-content', 'height': '100%', 'width': 'initial'}}>
       <Router>
         <Switch>
           <Route path='/about' exact component={About} />

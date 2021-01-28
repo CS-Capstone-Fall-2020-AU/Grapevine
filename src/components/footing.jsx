@@ -31,10 +31,11 @@ export default class Footing extends Component {
 				</Grid.Column>
 				<Grid.Column>
 					<Container textAlign='center'><Header as='h4'>Contact</Header>
-				For business inquiries or site concerns:
-				<br />
-				Email: grapevine.internships@gmail.com
-				<br /></Container>
+				
+				<p>For business inquiries or site concerns:
+			
+				grapevine.internships@gmail.com</p>
+				</Container>
 
 
 				</Grid.Column>

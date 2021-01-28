@@ -14,13 +14,22 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { company } from 'faker';
 import { animation } from 'react-reveal/globals';
 
+//bug report
+//1. zoom in
+//2. liking different posts
+//3. login needs more regex, if bad email return error
+//3.5 need to sign out of anonymous
+//5. everything related to node should have restart server conditions
+//3.7 add forgot password
+//4. node should always run
 //fix zoom in on nav///
 //add dropdown for login and anon with recieve notifications, sign out
 
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
 //add new things to database through website
-
+//bug when you like 2 different posts
+//handle to much in the database
 let nGram = require('n-gram')
 
 let options = [
@@ -35,6 +44,7 @@ let options = [
 ]
 
 let avg = 0;
+//if the average is greater than and it is less than the number beofr eit
 const gradesDict = {
 	'A+': '100',
 	'A': '95',
@@ -78,6 +88,7 @@ class CompanyPage extends Component {
 		addLocation: '',
 		reviewSuccessMessage: false,
 		warningVisible: true,
+		disabledLikeButton: false,
 	}
 
 	componentWillMount() {
@@ -170,41 +181,49 @@ class CompanyPage extends Component {
 
 	render() {
 
+
 		if (this.props.products) {
 			companyInfo = this.props.products.find(element => element.companyName === titleOfCompany);
+
+
 		}
 
 		{
 			if (companyInfo && companyInfo.imgLogoUrl) {
+
 				imglink = companyInfo.imgLogoUrl;
 				overallGrade = companyInfo.overallRatingGrade;
 				ratingsNum = companyInfo.numOfRatings;
 			}
+
 		}
 
 		//fetch the reviews associated with company name
 
 
 		let total = 0;
-
 		if (this.props.reviews) {
 			for (let rCount = 0; rCount < this.props.reviews.length; rCount++) {
 				//see what each grade is
 				let curGrade = this.props.reviews[rCount].internshipRating;
-
 				let gradeTranslation = Number(gradesDict[curGrade]);
 				total += gradeTranslation;
 			}
 
-			avg = (total / (this.props.reviews.length)).toFixed(2);;
+			avg = (total / (Number(this.props.reviews.length))).toFixed(2);
+			console.log("tis is the the avg", avg)
 			//if its 80 or + or - 4 than its a b
-			for (let [key, value] of Object.entries(gradesDict)) {
-				if (Number(value) === avg) {
-					finalOverallGrade = key;
-				}
-				else if ((Number(value) >= avg - 4) && (Number(value) <= avg + 4)) {
-					finalOverallGrade = key;
 
+			for (let [key, value] of Object.entries(gradesDict)) {
+				if (avg == Number(value)) {
+					console.log("yay");
+					finalOverallGrade = key;
+					break;
+				}
+				//4 is difference between 90 and 95 for example
+				else if ((avg > Number(value)) && (avg < Number(value) + 5)) {
+					finalOverallGrade = key;
+					break;
 				}
 				else {
 					continue;
@@ -230,6 +249,7 @@ class CompanyPage extends Component {
 						<Table.Body>
 							<Table.Row>
 								<Table.Cell>
+									{console.log("this overall grade is", finalOverallGrade)}
 									<Header as='h2' textAlign='center'>{finalOverallGrade}</Header>
 								</Table.Cell>
 								<Table.Cell textAlign='right'>{(isNaN(avg) ? '' : avg)}% <br /><a href='#'>{this.props.reviews.length} interns</a></Table.Cell>
@@ -243,7 +263,7 @@ class CompanyPage extends Component {
 					<Divider />
 
 					<Button onClick={this.handleAddReviewClick} style={{ 'float': 'right' }} size='tiny' primary><Icon style={{ 'margin': 'auto' }} name='add circle' /> Add Review</Button>
-					{(this.state.warningMessage) ? <Message warning size='mini' onDismiss={_=()=>{window.location.reload()}}>
+					{(this.state.warningMessage) ? <Message warning size='mini' onDismiss={_ = () => { window.location.reload() }}>
 						<Message.Header>You must login or go anonymous before you can add a review!</Message.Header>
 						<p>Visit our <a href='/login'>login</a> page or go anonymous, then try again.</p>
 					</Message> : ''}
@@ -265,7 +285,7 @@ class CompanyPage extends Component {
 							<Modal.Description>
 								<Form>
 									<Form.Input required fluid label='Company' placeholder={titleOfCompany} value={titleOfCompany} />
-									<Form.Input required fluid label='Internship Rating' placeholder='Rating: A+,C-,F, etc.' onChange={_ = (event) => { this.setState({ addRating: event.target.value.toUpperCase()}) }} />
+									<Form.Input required fluid label='Internship Rating' placeholder='Rating: A+,C-,F, etc.' onChange={_ = (event) => { this.setState({ addRating: event.target.value.toUpperCase() }) }} />
 									<Form.Input
 										label="Role:"
 									>
@@ -278,9 +298,9 @@ class CompanyPage extends Component {
 											onChange={_ = (event) => { this.setState({ addRole: event.target.textContent }); }}
 										/>
 									</Form.Input>
-									
-									<Form.TextArea  maxLength="255" required label='Comments' placeholder='Tell us more about how your experience went...' onChange={_ = (event) => {this.setState({ addComment: event.target.value }); console.log(this.state.addComment.length); } } />
-								
+
+									<Form.TextArea maxLength="255" required label='Comments' placeholder='Tell us more about how your experience went...' onChange={_ = (event) => { this.setState({ addComment: event.target.value }); }} />
+
 									<Form.Input fluid label='Location' placeholder='San Francisco, CA' onChange={_ = (event) => { this.setState({ addLocation: event.target.value }) }} />
 									<br />
 
@@ -289,7 +309,7 @@ class CompanyPage extends Component {
 						</Modal.Content>
 						<Modal.Actions>
 							<Button onClick={() => { this.setState({ addReviewModal: false }) }}>Cancel</Button>
-							<Button positive onClick={_ = () => {this.setState({ addReviewModal: false }); this.props.postingAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogins.isAnonymous, this.props.usersLogins.username); this.handleAddedReviewSuccess() }} primary>
+							<Button positive onClick={_ = () => { this.setState({ addReviewModal: false }); this.props.postingAddReview(titleOfCompany, this.props.usersLogins.userID, this.state.addRating, this.state.addRole, this.state.addComment, this.state.addLocation, this.props.usersLogins.isAnonymous, this.props.usersLogins.username); this.handleAddedReviewSuccess() }} primary>
 								Submit
 							</Button>
 
@@ -315,9 +335,7 @@ class CompanyPage extends Component {
 									</Feed.Summary>
 
 									<Feed.Meta>
-										<Feed.Like>
-											{(review.reviewID === this.state.agreeVoteFakeState) ? <p><Icon name='thumbs up' />{review.agreeVotes + 1} Agree</p> : <p><Icon name='thumbs up' />{review.agreeVotes} Agree</p>}
-										</Feed.Like>
+											<p id={review.reviewID}><Icon name='thumbs up' />{Number(review.agreeVotes)} Agree</p>
 									</Feed.Meta>
 
 									<Table celled className='ratings-table' color='green'>
@@ -349,9 +367,14 @@ class CompanyPage extends Component {
 										</Table.Body>
 									</Table>
 
-									<Button size='tiny' onClick={_ = () => {this.props.updateAgree(review.reviewID); this.setState({agreeVoteFakeState: review.reviewID }); }}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
+									<Button size='tiny' id={`/likeButton/${review.reviewID}`} onClick={_ = () => {
+										this.props.updateAgree(review.reviewID); let numLiked = parseInt(document.getElementById(review.reviewID).innerText);
+										let strLiked = document.getElementById(review.reviewID).innerHTML;
+										document.getElementById(review.reviewID).innerHTML = strLiked.replace(numLiked, numLiked += 1);  
+										document.getElementById(`/likeButton/${review.reviewID}`).classList.add("disabled");;
+									}}><Icon style={{ 'margin': 'auto' }} name='thumbs up' /></Button>
 
-									{/* <Button size='tiny'><Icon style={{ 'margin': 'auto' }} name='thumbs down' /></Button> */}
+									{/* if its been clicked, you cant click it again*/}
 								</Feed.Content>
 
 							</Feed.Event>

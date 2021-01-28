@@ -6,7 +6,8 @@ import _ from 'lodash'
 import { Jumbotron, Carousel } from 'react-bootstrap';
 import { Button, Container, Modal, Label, List, Menu, Input, Segment, Divider, Search, Grid, Header, Icon, Dropdown, Image, GridColumn, SegmentInline } from 'semantic-ui-react';
 import App from '../App'
-
+import drew from '../images/dreww.jpg'
+import elisabetta from '../images/elisabetta2.jpg'
 
 export default class About extends Component {
 	render() {
@@ -42,7 +43,7 @@ export default class About extends Component {
 					<br />
 					<Grid>
 						<Grid.Column width={6}>
-							<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src='https://pbs.twimg.com/profile_images/1303503587629297664/CgCeWBVk_400x400.jpg' circular />
+							<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src={elisabetta} circular />
 						</Grid.Column>
 						<Grid.Column width={10} style={{ 'margin': 'auto', 'padding-right': '10%' }}>
 							<strong>Elisabetta Gabriele</strong> is a software engineer, currently pursuing a BS in Computer Science at American University.
@@ -57,7 +58,7 @@ export default class About extends Component {
 						Upon graduating, he will work for Freddie Mac and continue working on projects involving data science and analytics.
 					</Grid.Column>
 						<Grid.Column width={6}>
-							<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src='https://media-exp1.licdn.com/dms/image/C5603AQFLhCMCbQKPiA/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=vWDgy6pcq8PvKhNdDZfiiExUgqcvD0WR6lOb27gj8bs' circular />
+							<Image style={{ 'margin': 'auto', 'padding': '0 !important' }} size='medium' src={drew} circular />
 						</Grid.Column>
 					</Grid>
 				</Container>

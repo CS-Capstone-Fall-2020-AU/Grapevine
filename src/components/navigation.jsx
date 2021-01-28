@@ -82,7 +82,7 @@ class Navigation extends Component {
 		
 		
 				<Sticky offset={.01} onBottom='ui fixed top sticky'>					
-					<Menu fluid>
+					<Menu fluid style={{'width': 'min-content'}}>
 						<Menu.Item
 							name='Grapevine'
 							active={activeItem === 'Grapevine logo'}
