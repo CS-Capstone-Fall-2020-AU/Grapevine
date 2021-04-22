@@ -16,7 +16,7 @@ export default class Footing extends Component {
 	render() {
 		return (
 
-			<Grid columns={4} style={{ 'backgroundColor': 'rgba(161, 151, 170, 0.288)' }}>
+			<Grid columns={4} style={{ opacity: .9}}>
 				<Grid.Column>
 					<Container textAlign='center'>
 						<Image src={Logo} size='tiny' style={{ 'margin': 'auto' }} />

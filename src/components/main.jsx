@@ -43,7 +43,7 @@ class Main extends Component {
 	}
 
 	componentDidMount() {
-		opts2 = this.props.fetchCompanies();
+		this.props.fetchCompanies();
 	}
 
 
@@ -71,9 +71,7 @@ class Main extends Component {
 	render() {
 		console.log("products", this.props.products);
 		return (
-
-
-			<Grid style={{ 'width': '90%', 'margin': 'auto' }}>
+			<Grid style={{ 'width': '90%', 'margin': 'auto'}}>
 				{/* //do a fetch products where you order by numofreview
 				// this.props.fetchProducts('main') array.sort*/}
 				<Grid.Row columns='equal' style={{ 'paddingTop': '0px' }}>

@@ -16,7 +16,6 @@ import { animation } from 'react-reveal/globals';
 
 //bug report
 //1. zoom in
-//2. liking different posts
 //3. login needs more regex, if bad email return error
 //3.5 need to sign out of anonymous
 //5. everything related to node should have restart server conditions
@@ -28,8 +27,7 @@ import { animation } from 'react-reveal/globals';
 //add to amazon ec2 instance
 //if they add a company it should send grapevine an email
 //add new things to database through website
-//bug when you like 2 different posts
-//handle to much in the database
+//handle too much in the database
 let nGram = require('n-gram')
 
 let options = [

@@ -18,7 +18,7 @@ export default class Homepage extends Component {
 	render() {
 		return (
 			<span>
-				<Grid divided='vertically' centered inverted id="front-grid">
+				<Grid divided='vertically' centered inverted id="front-grid" >
 					<Grid.Row columns={3} id='first-div'>
 						<Grid.Column >
 							<Fade bottom={true}><Image id='logo' src={Logo} size='medium' /></Fade>
